@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thera Cosméticos - Relatório de Performance - Maio 2026</title>
+    <title>Thera Cosméticos - Relatório de Performance - V2</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -20,8 +20,6 @@
             --prax-color: #00e676;
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
-            --text-glow: rgba(255, 255, 255, 0.05);
-            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
         }
 
         * {
@@ -74,10 +72,10 @@
 
         .cover-left h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 4.5rem;
+            font-size: 3.5rem;
             font-weight: 800;
             line-height: 1.1;
-            letter-spacing: -2px;
+            letter-spacing: -1px;
             background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -114,7 +112,6 @@
             align-items: center;
         }
 
-        /* Abstract Cover Art */
         .cover-art {
             width: 320px;
             height: 320px;
@@ -161,7 +158,7 @@
         /* App Layout Grid */
         .app-container {
             display: grid;
-            grid-template-columns: 260px 1fr;
+            grid-template-columns: 280px 1fr;
             min-height: 100vh;
         }
 
@@ -169,7 +166,7 @@
         .sidebar {
             background-color: #0b0f19;
             border-right: 1px solid var(--border-card);
-            padding: 2.5rem 1.5rem;
+            padding: 2.5rem 1.25rem;
             position: sticky;
             top: 0;
             height: 100vh;
@@ -182,59 +179,67 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 3rem;
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--accent) 0%, #1877F2 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: #fff;
-            font-size: 1.25rem;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .logo-text {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             letter-spacing: 0.5px;
-            background: linear-gradient(135deg, #ffffff 0%, var(--text-muted) 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            outline: none;
+            padding: 0.25rem;
         }
 
         .nav-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: grab;
+            border: 1px solid transparent;
+        }
+        
+        .nav-item:active {
+            cursor: grabbing;
         }
 
         .nav-item a {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
             color: var(--text-muted);
             text-decoration: none;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
+            padding: 0.75rem 0.85rem;
+            width: 100%;
             font-size: 0.925rem;
             font-weight: 500;
-            transition: all 0.3s ease;
+            outline: none;
         }
 
         .nav-item.active a, .nav-item a:hover {
             color: #fff;
             background: rgba(0, 210, 255, 0.08);
             border-left: 3px solid var(--accent);
-            padding-left: calc(1rem - 3px);
+            padding-left: calc(0.85rem - 3px);
+        }
+
+        /* Drag over styling */
+        .nav-item.drag-over {
+            border: 1px dashed var(--accent);
+            background: rgba(0, 210, 255, 0.04);
         }
 
         .footer-branding {
@@ -248,6 +253,30 @@
             color: var(--text-main);
             display: block;
             margin-bottom: 0.25rem;
+        }
+
+        /* Fullscreen presentation button styling */
+        .fullscreen-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            color: var(--accent);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-btn:hover {
+            background: rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
         }
 
         /* Main Content Styling */
@@ -275,12 +304,14 @@
             background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            outline: none;
         }
 
         .dash-header p {
             color: var(--text-muted);
             font-size: 0.95rem;
             margin-top: 0.25rem;
+            outline: none;
         }
 
         /* Section Layouts */
@@ -330,6 +361,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            outline: none;
         }
 
         .card-title-icon {
@@ -381,6 +413,7 @@
             letter-spacing: 1px;
             margin-bottom: 0.5rem;
             font-weight: 600;
+            outline: none;
         }
 
         .kpi-value {
@@ -389,6 +422,7 @@
             font-weight: 700;
             color: #fff;
             line-height: 1.2;
+            outline: none;
         }
 
         .kpi-subtext {
@@ -398,6 +432,53 @@
             display: flex;
             align-items: center;
             gap: 0.25rem;
+            outline: none;
+        }
+
+        /* Resizable Container for Planilhas */
+        .resizable-wrapper {
+            position: relative;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            background: rgba(13, 20, 38, 0.2);
+        }
+
+        .resizable-container {
+            resize: both;
+            overflow: auto;
+            min-width: 100%;
+            min-height: 150px;
+            transition: border-color 0.3s ease;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .resizable-container::-webkit-resizer {
+            background-color: var(--accent);
+            border-radius: 50%;
+            border: 4px solid #060913;
+        }
+
+        /* Dimension Control HUD */
+        .dimension-hud {
+            display: flex;
+            gap: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px dashed rgba(255,255,255,0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .dimension-hud input[type="range"] {
+            width: 100px;
+            accent-color: var(--accent);
+            cursor: pointer;
         }
 
         /* Interactive Tables */
@@ -405,7 +486,6 @@
             width: 100%;
             overflow-x: auto;
             border-radius: 12px;
-            border: 1px solid var(--border-card);
         }
 
         .data-table {
@@ -422,12 +502,14 @@
             padding: 1rem 1.25rem;
             border-bottom: 1px solid var(--border-card);
             font-family: 'Outfit', sans-serif;
+            outline: none;
         }
 
         .data-table td {
             padding: 1rem 1.25rem;
             border-bottom: 1px solid var(--border-card);
             color: var(--text-main);
+            outline: none;
         }
 
         .data-table tr:last-child td {
@@ -469,6 +551,7 @@
             margin-bottom: 1rem;
             font-size: 1.1rem;
             font-weight: 600;
+            outline: none;
         }
 
         .strategy-block ul {
@@ -479,6 +562,11 @@
 
         .strategy-block ul li {
             margin-bottom: 0.5rem;
+            outline: none;
+        }
+
+        .strategy-block p {
+            outline: none;
         }
 
         /* Campaign lists split layout */
@@ -512,6 +600,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            outline: none;
         }
 
         .campaign-status-card.best h4 { color: #00e676; }
@@ -541,6 +630,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            outline: none;
         }
 
         .campaign-platform-badge {
@@ -570,8 +660,8 @@
             color: var(--text-muted);
         }
 
-        .campaign-item-row strong {
-            color: #fff;
+        .campaign-item-row div {
+            outline: none;
         }
 
         /* Prax Selector Widget */
@@ -662,55 +752,51 @@
             height: 250px;
         }
 
-        /* Custom dropdown selector styling */
-        .custom-select-wrapper {
-            position: relative;
-        }
-
-        .custom-select {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-card);
-            color: #fff;
-            padding: 0.5rem 2rem 0.5rem 1rem;
-            border-radius: 8px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.875rem;
-            cursor: pointer;
-            appearance: none;
-            outline: none;
-        }
-
-        /* Footer */
-        .closing-footer {
-            margin-top: 5rem;
-            border-top: 1px solid var(--border-card);
-            padding-top: 3rem;
+        /* Final Presentation Section Styling */
+        .final-presentation-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 85vh;
             text-align: center;
-            position: relative;
+            padding: 2rem;
         }
 
-        .closing-footer h3 {
+        .thank-you-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 2rem;
+            font-size: 4rem;
             font-weight: 800;
             background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            outline: none;
         }
 
+        .final-branding-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        /* Signature block layout */
         .closing-footer-layout {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 2rem;
-            margin-top: 2.5rem;
+            margin-top: 2rem;
         }
 
         .closing-divider {
             width: 1px;
             height: 50px;
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255,255,255,0.15);
         }
 
         .footer-logo-mike {
@@ -719,13 +805,13 @@
             font-size: 1.5rem;
             color: #fff;
             letter-spacing: 2px;
+            outline: none;
         }
 
         .footer-logo-mike span {
             color: var(--accent);
         }
 
-        /* Navigation indicator dots */
         .section-tabs-bar {
             display: flex;
             gap: 1.5rem;
@@ -759,6 +845,36 @@
             height: 2px;
             background: var(--accent);
         }
+
+        /* Mode HUD styling */
+        .mode-hud {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(13, 20, 38, 0.9);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 0.75rem 1.25rem;
+            box-shadow: 0 5px 25px rgba(0, 210, 255, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mode-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00e676;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
     </style>
 </head>
 <body>
@@ -768,26 +884,33 @@
     <aside class="sidebar">
         <div>
             <div class="logo-area">
-                <div class="logo-icon">T</div>
-                <div class="logo-text">Thera Cosméticos</div>
+                <div class="logo-text" contenteditable="true">Thera Cosméticos</div>
             </div>
             
             <nav>
-                <ul class="nav-list">
-                    <li class="nav-item active" data-target="cover"><a href="#cover">Capada do Relatório</a></li>
-                    <li class="nav-item" data-target="meta-ads"><a href="#meta-ads">Meta Ads (Facebook)</a></li>
-                    <li class="nav-item" data-target="google-ads"><a href="#google-ads">Google Ads</a></li>
-                    <li class="nav-item" data-target="prax-ecommerce"><a href="#prax-ecommerce">Prax - E-commerce</a></li>
-                    <li class="nav-item" data-target="campaigns"><a href="#campaigns">Comparativo Campanhas</a></li>
-                    <li class="nav-item" data-target="demographics"><a href="#demographics">Públicos e Regiões</a></li>
-                    <li class="nav-item" data-target="recompra"><a href="#recompra">Recompra & Retenção</a></li>
+                <ul class="nav-list" id="sidebarNavList">
+                    <li class="nav-item active" data-target="cover" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#cover"><span contenteditable="true">Capa do Relatório</span></a></li>
+                    <li class="nav-item" data-target="meta-ads" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#meta-ads"><span contenteditable="true">Meta Ads (Facebook)</span></a></li>
+                    <li class="nav-item" data-target="google-ads" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#google-ads"><span contenteditable="true">Google Ads</span></a></li>
+                    <li class="nav-item" data-target="prax-ecommerce" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#prax-ecommerce"><span contenteditable="true">Prax - E-commerce</span></a></li>
+                    <li class="nav-item" data-target="campaigns" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#campaigns"><span contenteditable="true">Comparativo Campanhas</span></a></li>
+                    <li class="nav-item" data-target="demographics" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#demographics"><span contenteditable="true">Públicos e Regiões</span></a></li>
+                    <li class="nav-item" data-target="recompra" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#recompra"><span contenteditable="true">Recompra & Retenção</span></a></li>
+                    <li class="nav-item" data-target="finalizacao" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#finalizacao"><span contenteditable="true">Agradecimento</span></a></li>
                 </ul>
             </nav>
         </div>
 
-        <div class="footer-branding">
-            <strong>Maio 2026</strong>
-            <span>Performance Dashboard</span>
+        <div>
+            <!-- Fullscreen presentation trigger button -->
+            <button class="fullscreen-btn" onclick="toggleFullScreen()">
+                <span>📺 Tela Cheia</span>
+            </button>
+            
+            <div class="footer-branding">
+                <strong contenteditable="true">Maio 2026</strong>
+                <span contenteditable="true">Performance Dashboard</span>
+            </div>
         </div>
     </aside>
 
@@ -795,25 +918,23 @@
     <main class="main-content">
         <!-- COVER SECTION -->
         <section id="cover" class="section-block active">
-            <div class="cover-badge">🏆 Dashboard de Performance</div>
-            <div class="cover-content" style="margin-top: 3rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+                <div class="cover-badge" contenteditable="true">🏆 Dashboard de Performance</div>
+            </div>
+            
+            <div class="cover-content" style="margin-top: 4rem;">
                 <div class="cover-left">
-                    <h1 style="font-size: 3.5rem;">Relatório de Tráfego Pago</h1>
-                    <p style="font-size: 1.5rem; color: #fff; margin-bottom: 0.5rem; font-family: 'Outfit';">Thera Cosméticos</p>
-                    <p style="font-size: 1.1rem;">Análise de métricas consolidadas de campanhas de tráfego, vendas de e-commerce, audiências e retenção no período de Maio de 2026.</p>
+                    <h1 contenteditable="true">Relatório de Performance</h1>
+                    <p style="font-size: 1.75rem; color: #fff; margin-bottom: 0.75rem; font-family: 'Outfit';" contenteditable="true">Thera Cosméticos</p>
+                    <p style="font-size: 1.15rem; color: var(--text-muted); font-weight: 300; margin-bottom: 4rem;" contenteditable="true">Análise estratégica de tráfego pago, funil de e-commerce, públicos-alvo e recorrência de clientes no período de Maio de 2026.</p>
                     
-                    <div style="display: flex; gap: 2rem; margin-top: 3rem;">
-                        <div>
-                            <span style="display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Investimento Total</span>
-                            <span style="font-size: 1.75rem; font-family: 'Outfit'; font-weight: 700; color: var(--accent);">R$ 64.017,62</span>
-                        </div>
-                        <div>
-                            <span style="display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Receita E-commerce</span>
-                            <span style="font-size: 1.75rem; font-family: 'Outfit'; font-weight: 700; color: #00e676;">R$ 2.027.483,88</span>
-                        </div>
-                        <div>
-                            <span style="display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">ROI Geral</span>
-                            <span style="font-size: 1.75rem; font-family: 'Outfit'; font-weight: 700; color: #ffd600;">63.69x</span>
+                    <!-- Cover Signature Block -->
+                    <div class="closing-footer-layout" style="justify-content: flex-start; margin-top: 2rem;">
+                        <div class="footer-logo-mike" contenteditable="true">MIKE<span>ADS</span></div>
+                        <div class="closing-divider"></div>
+                        <div style="text-align: left; font-size: 0.8rem; color: var(--text-muted);">
+                            <strong style="color: #fff; display: block; margin-bottom: 0.25rem;" contenteditable="true">THERA COSMÉTICOS</strong>
+                            <span contenteditable="true">Gestão de Mídia & Analytics | Maio 2026</span>
                         </div>
                     </div>
                 </div>
@@ -827,113 +948,123 @@
         <section id="meta-ads" class="section-block">
             <div class="dash-header">
                 <div>
-                    <h2>Meta Ads (Facebook / Instagram)</h2>
-                    <p>Métricas gerais e campanhas de branding e e-commerce de Maio 2026</p>
+                    <h2 contenteditable="true">Meta Ads (Facebook / Instagram)</h2>
+                    <p contenteditable="true">Métricas gerais e campanhas de branding e e-commerce de Maio 2026</p>
                 </div>
             </div>
 
             <div class="kpi-grid">
                 <div class="kpi-card" style="--accent: var(--meta-color)">
-                    <div class="kpi-label">Alcance Total</div>
-                    <div class="kpi-value">304.122</div>
-                    <div class="kpi-subtext">Pessoas alcançadas únicas</div>
+                    <div class="kpi-label" contenteditable="true">Alcance Total</div>
+                    <div class="kpi-value" contenteditable="true">304.122</div>
+                    <div class="kpi-subtext" contenteditable="true">Pessoas alcançadas únicas</div>
                 </div>
                 <div class="kpi-card" style="--accent: var(--meta-color)">
-                    <div class="kpi-label">Impressões</div>
-                    <div class="kpi-value">2.174.282</div>
-                    <div class="kpi-subtext">Frequência média de 7.15</div>
+                    <div class="kpi-label" contenteditable="true">Impressões</div>
+                    <div class="kpi-value" contenteditable="true">2.174.282</div>
+                    <div class="kpi-subtext" contenteditable="true">Frequência média de 7.15</div>
                 </div>
                 <div class="kpi-card" style="--accent: var(--meta-color)">
-                    <div class="kpi-label">Investimento</div>
-                    <div class="kpi-value">R$ 14.524,35</div>
-                    <div class="kpi-subtext">Investimento total no Meta</div>
+                    <div class="kpi-label" contenteditable="true">Investimento</div>
+                    <div class="kpi-value" id="kpiMetaInvestment" contenteditable="true">R$ 12.272,84</div>
+                    <div class="kpi-subtext" contenteditable="true">Investimento total no Meta</div>
                 </div>
                 <div class="kpi-card" style="--accent: var(--meta-color)">
-                    <div class="kpi-label">Cliques no Link</div>
-                    <div class="kpi-value">36.300</div>
-                    <div class="kpi-subtext">CTR médio de 1.67% | CPC R$ 0,40</div>
+                    <div class="kpi-label" contenteditable="true">Cliques no Link</div>
+                    <div class="kpi-value" contenteditable="true">36.300</div>
+                    <div class="kpi-subtext" contenteditable="true">CTR médio de 1.67% | CPC R$ 0,40</div>
                 </div>
             </div>
 
-            <!-- Meta Campanha de Branding -->
             <div class="glass-card">
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="card-title" contenteditable="true">
                         <div class="card-title-icon" style="background: var(--meta-color)"></div>
                         Campanha de Branding - Lojas Físicas
                     </div>
                 </div>
                 <div class="strategy-container">
                     <div class="strategy-block">
-                        <h4>Objetivo & Estratégia</h4>
-                        <p style="color: var(--text-muted); font-size: 0.925rem;">Gerar engajamento e utilizar campanhas direcionadas para fomentar o interesse de visita física nas principais praças de atuação da marca.</p>
+                        <h4 contenteditable="true">Objetivo & Estratégia</h4>
+                        <p style="color: var(--text-muted); font-size: 0.925rem;" contenteditable="true">Gerar engajamento e utilizar campanhas direcionadas para fomentar o interesse de visita física nas principais praças de atuação da marca.</p>
                     </div>
                     <div class="strategy-block">
-                        <h4>Públicos-Alvo</h4>
+                        <h4 contenteditable="true">Públicos-Alvo</h4>
                         <ul>
-                            <li>Remarketing IG + FB 60d</li>
-                            <li>Remarketing Site 30d</li>
-                            <li>Público de interesse em Perfumes</li>
+                            <li contenteditable="true">Remarketing IG + FB 60d</li>
+                            <li contenteditable="true">Remarketing Site 30d</li>
+                            <li contenteditable="true">Público de interesse em Perfumes</li>
                         </ul>
                     </div>
                 </div>
 
-                <h3 style="font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 1rem; color: #fff;">Indicadores de Desempenho Regional</h3>
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Métrica</th>
-                                <th>São Paulo</th>
-                                <th>Campinas</th>
-                                <th>Piracicaba</th>
-                                <th>Sorocaba</th>
-                                <th>Soma (Total)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Impressões</strong></td>
-                                <td>80.340</td>
-                                <td>60.467</td>
-                                <td>64.318</td>
-                                <td>64.248</td>
-                                <td>269.442</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Pessoas Alcançadas</strong></td>
-                                <td>39.234</td>
-                                <td>27.181</td>
-                                <td>23.018</td>
-                                <td>25.304</td>
-                                <td>107.905</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Engajamentos</strong></td>
-                                <td>31.331</td>
-                                <td>19.242</td>
-                                <td>20.094</td>
-                                <td>21.957</td>
-                                <td>92.624</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Custo por Engajamento</strong></td>
-                                <td>R$ 0,02</td>
-                                <td>R$ 0,03</td>
-                                <td>R$ 0,03</td>
-                                <td>R$ 0,03</td>
-                                <td>R$ 0,02</td>
-                            </tr>
-                            <tr class="total-row">
-                                <td><strong>Investimento</strong></td>
-                                <td>R$ 562,98</td>
-                                <td>R$ 561,97</td>
-                                <td>R$ 560,98</td>
-                                <td>R$ 565,58</td>
-                                <td>R$ 2.251,51</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <h3 style="font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 1rem; color: #fff;" contenteditable="true">Indicadores de Desempenho Regional</h3>
+                
+                <div class="resizable-wrapper">
+                    <div class="dimension-hud">
+                        <span>Largura:</span>
+                        <input type="range" min="300" max="1200" value="800" oninput="adjustWidth(this)">
+                        <span>Altura:</span>
+                        <input type="range" min="150" max="600" value="300" oninput="adjustHeight(this)">
+                    </div>
+                    <div class="resizable-container">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th contenteditable="true">Métrica</th>
+                                        <th contenteditable="true">São Paulo</th>
+                                        <th contenteditable="true">Campinas</th>
+                                        <th contenteditable="true">Piracicaba</th>
+                                        <th contenteditable="true">Sorocaba</th>
+                                        <th contenteditable="true">Soma (Total)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td contenteditable="true"><strong>Impressões</strong></td>
+                                        <td contenteditable="true">80.340</td>
+                                        <td contenteditable="true">60.467</td>
+                                        <td contenteditable="true">64.318</td>
+                                        <td contenteditable="true">64.248</td>
+                                        <td contenteditable="true">269.442</td>
+                                    </tr>
+                                    <tr>
+                                        <td contenteditable="true"><strong>Pessoas Alcançadas</strong></td>
+                                        <td contenteditable="true">39.234</td>
+                                        <td contenteditable="true">27.181</td>
+                                        <td contenteditable="true">23.018</td>
+                                        <td contenteditable="true">25.304</td>
+                                        <td contenteditable="true">107.905</td>
+                                    </tr>
+                                    <tr>
+                                        <td contenteditable="true"><strong>Engajamentos</strong></td>
+                                        <td contenteditable="true">31.331</td>
+                                        <td contenteditable="true">19.242</td>
+                                        <td contenteditable="true">20.094</td>
+                                        <td contenteditable="true">21.957</td>
+                                        <td contenteditable="true">92.624</td>
+                                    </tr>
+                                    <tr>
+                                        <td contenteditable="true"><strong>Custo por Engajamento</strong></td>
+                                        <td contenteditable="true">R$ 0,02</td>
+                                        <td contenteditable="true">R$ 0,03</td>
+                                        <td contenteditable="true">R$ 0,03</td>
+                                        <td contenteditable="true">R$ 0,03</td>
+                                        <td contenteditable="true">R$ 0,02</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td contenteditable="true"><strong>Investimento</strong></td>
+                                        <td contenteditable="true">R$ 562,98</td>
+                                        <td contenteditable="true">R$ 561,97</td>
+                                        <td contenteditable="true">R$ 560,98</td>
+                                        <td contenteditable="true">R$ 565,58</td>
+                                        <td contenteditable="true">R$ 2.251,51</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -944,137 +1075,155 @@
                     <button class="tab-btn" onclick="switchMetaMoMTab(event, 'meta-mom-2025')">Comparativo MoM 2025</button>
                 </div>
 
-                <!-- MoM 2026 Table -->
                 <div id="meta-mom-2026" class="mom-table-container active">
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Métrica</th>
-                                    <th>Janeiro</th>
-                                    <th>Fevereiro</th>
-                                    <th>Março</th>
-                                    <th>Abril</th>
-                                    <th>Maio</th>
-                                    <th>Junho</th>
-                                    <th>Julho</th>
-                                    <th>Agosto</th>
-                                    <th>Setembro</th>
-                                    <th>Outubro</th>
-                                    <th>Novembro</th>
-                                    <th>Dezembro</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Impressões</strong></td>
-                                    <td>1.2mi</td>
-                                    <td>1.1mi</td>
-                                    <td>1.5mi</td>
-                                    <td>1.8mi</td>
-                                    <td style="color: var(--accent); font-weight: 700;">1.9mi</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Pessoas Alcançadas</strong></td>
-                                    <td>279mil</td>
-                                    <td>151mil</td>
-                                    <td>217mil</td>
-                                    <td>180mil</td>
-                                    <td style="color: var(--accent); font-weight: 700;">210mil</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Vendas</strong></td>
-                                    <td>1.729</td>
-                                    <td>1.222</td>
-                                    <td>2.102</td>
-                                    <td>1.952</td>
-                                    <td style="color: var(--accent); font-weight: 700;">2.025</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Custo por Venda</strong></td>
-                                    <td>R$ 3,92</td>
-                                    <td>R$ 5,15</td>
-                                    <td>R$ 4,86</td>
-                                    <td>R$ 5,89</td>
-                                    <td style="color: var(--accent); font-weight: 700;">R$ 6,06</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>ROAS</strong></td>
-                                    <td>51.53</td>
-                                    <td>35.96</td>
-                                    <td>39.46</td>
-                                    <td>37.40</td>
-                                    <td style="color: var(--accent); font-weight: 700;">38.42</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Valor de Venda</strong></td>
-                                    <td>R$ 349.230,59</td>
-                                    <td>R$ 266.139,53</td>
-                                    <td>R$ 407.175,78</td>
-                                    <td>R$ 429.748,59</td>
-                                    <td style="color: var(--accent); font-weight: 700;">R$ 471.519,83</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr class="total-row">
-                                    <td><strong>Investimento</strong></td>
-                                    <td>R$ 6.776,23</td>
-                                    <td>R$ 6.288,07</td>
-                                    <td>R$ 10.207,19</td>
-                                    <td>R$ 11.489,72</td>
-                                    <td style="color: #fff;">R$ 12.272,84</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="resizable-wrapper">
+                        <div class="dimension-hud">
+                            <span>Largura:</span>
+                            <input type="range" min="300" max="1200" value="800" oninput="adjustWidth(this)">
+                            <span>Altura:</span>
+                            <input type="range" min="150" max="600" value="300" oninput="adjustHeight(this)">
+                        </div>
+                        <div class="resizable-container">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th contenteditable="true">Métrica</th>
+                                            <th contenteditable="true">Janeiro</th>
+                                            <th contenteditable="true">Fevereiro</th>
+                                            <th contenteditable="true">Março</th>
+                                            <th contenteditable="true">Abril</th>
+                                            <th contenteditable="true">Maio</th>
+                                            <th contenteditable="true">Junho</th>
+                                            <th contenteditable="true">Julho</th>
+                                            <th contenteditable="true">Agosto</th>
+                                            <th contenteditable="true">Setembro</th>
+                                            <th contenteditable="true">Outubro</th>
+                                            <th contenteditable="true">Novembro</th>
+                                            <th contenteditable="true">Dezembro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Impressões</strong></td>
+                                            <td contenteditable="true">1.2mi</td>
+                                            <td contenteditable="true">1.1mi</td>
+                                            <td contenteditable="true">1.5mi</td>
+                                            <td contenteditable="true">1.8mi</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">1.9mi</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Pessoas Alcançadas</strong></td>
+                                            <td contenteditable="true">279mil</td>
+                                            <td contenteditable="true">151mil</td>
+                                            <td contenteditable="true">217mil</td>
+                                            <td contenteditable="true">180mil</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">210mil</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Vendas</strong></td>
+                                            <td contenteditable="true">1.729</td>
+                                            <td contenteditable="true">1.222</td>
+                                            <td contenteditable="true">2.102</td>
+                                            <td contenteditable="true">1.952</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">2.025</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Custo por Venda</strong></td>
+                                            <td contenteditable="true">R$ 3,92</td>
+                                            <td contenteditable="true">R$ 5,15</td>
+                                            <td contenteditable="true">R$ 4,86</td>
+                                            <td contenteditable="true">R$ 5,89</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">R$ 6,06</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>ROAS</strong></td>
+                                            <td contenteditable="true">51.53</td>
+                                            <td contenteditable="true">35.96</td>
+                                            <td contenteditable="true">39.46</td>
+                                            <td contenteditable="true">37.40</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">38.42</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Valor de Venda</strong></td>
+                                            <td contenteditable="true">R$ 349.230,59</td>
+                                            <td contenteditable="true">R$ 266.139,53</td>
+                                            <td contenteditable="true">R$ 407.175,78</td>
+                                            <td contenteditable="true">R$ 429.748,59</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">R$ 471.519,83</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr class="total-row">
+                                            <td contenteditable="true"><strong>Investimento</strong></td>
+                                            <td contenteditable="true">R$ 6.776,23</td>
+                                            <td contenteditable="true">R$ 6.288,07</td>
+                                            <td contenteditable="true">R$ 10.207,19</td>
+                                            <td contenteditable="true">R$ 11.489,72</td>
+                                            <td style="color: #fff;" id="tableMetaMayInvestment" contenteditable="true">R$ 12.272,84</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- MoM 2025 Table -->
                 <div id="meta-mom-2025" class="mom-table-container" style="display: none;">
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Métrica</th>
-                                    <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Impressões</strong></td>
-                                    <td>1.2mi</td><td>1mi</td><td>1.19mi</td><td>1.5mi</td><td>1.5mi</td><td>1.3mi</td><td>1.2mi</td><td>1.4mi</td><td>1.3mi</td><td>1.4mi</td><td>1.0mi</td><td>1.1mi</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Pessoas Alcançadas</strong></td>
-                                    <td>290k</td><td>140k</td><td>176k</td><td>277k</td><td>237k</td><td>278k</td><td>191k</td><td>167k</td><td>164k</td><td>169k</td><td>134k</td><td>193k</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Vendas</strong></td>
-                                    <td>1.790</td><td>1.646</td><td>1.678</td><td>2.185</td><td>2.404</td><td>2.077</td><td>1.872</td><td>2.173</td><td>1.842</td><td>1.684</td><td>3.239</td><td>1.593</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Custo por Venda</strong></td>
-                                    <td>R$ 3,88</td><td>R$ 4,53</td><td>R$ 5,07</td><td>R$ 5,11</td><td>R$ 4,41</td><td>R$ 4,57</td><td>R$ 5,02</td><td>R$ 4,70</td><td>R$ 5,22</td><td>R$ 6,12</td><td>R$ 2.56</td><td>R$ 4,59</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>ROI / ROAS</strong></td>
-                                    <td>51.0</td><td>43.0</td><td>39.0</td><td>39.0</td><td>46.0</td><td>45.0</td><td>42.0</td><td>42.0</td><td>39.0</td><td>35.0</td><td>91.0</td><td>46.0</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Valor de Venda</strong></td>
-                                    <td>R$ 352k</td><td>R$ 320k</td><td>R$ 331k</td><td>R$ 433k</td><td>R$ 491k</td><td>R$ 424k</td><td>R$ 393k</td><td>R$ 428k</td><td>R$ 377k</td><td>R$ 361k</td><td>R$ 759k</td><td>R$ 339k</td>
-                                </tr>
-                                <tr class="total-row">
-                                    <td><strong>Investimento</strong></td>
-                                    <td>R$ 6.951</td><td>R$ 7.457</td><td>R$ 8.505</td><td>R$ 11.169</td><td>R$ 10.593</td><td>R$ 9.498</td><td>R$ 9.395</td><td>R$ 10.209</td><td>R$ 9.623</td><td>R$ 10.303</td><td>R$ 8.288</td><td>R$ 7.315</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="resizable-wrapper">
+                        <div class="dimension-hud">
+                            <span>Largura:</span>
+                            <input type="range" min="300" max="1200" value="800" oninput="adjustWidth(this)">
+                            <span>Altura:</span>
+                            <input type="range" min="150" max="600" value="300" oninput="adjustHeight(this)">
+                        </div>
+                        <div class="resizable-container">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th contenteditable="true">Métrica</th>
+                                            <th contenteditable="true">Jan</th><th contenteditable="true">Fev</th><th contenteditable="true">Mar</th><th contenteditable="true">Abr</th><th contenteditable="true">Mai</th><th contenteditable="true">Jun</th><th contenteditable="true">Jul</th><th contenteditable="true">Ago</th><th contenteditable="true">Set</th><th contenteditable="true">Out</th><th contenteditable="true">Nov</th><th contenteditable="true">Dez</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Impressões</strong></td>
+                                            <td contenteditable="true">1.2mi</td><td contenteditable="true">1mi</td><td contenteditable="true">1.19mi</td><td contenteditable="true">1.5mi</td><td contenteditable="true">1.5mi</td><td contenteditable="true">1.3mi</td><td contenteditable="true">1.2mi</td><td contenteditable="true">1.4mi</td><td contenteditable="true">1.3mi</td><td contenteditable="true">1.4mi</td><td contenteditable="true">1.0mi</td><td contenteditable="true">1.1mi</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Pessoas Alcançadas</strong></td>
+                                            <td contenteditable="true">290k</td><td contenteditable="true">140k</td><td contenteditable="true">176k</td><td contenteditable="true">277k</td><td contenteditable="true">237k</td><td contenteditable="true">278k</td><td contenteditable="true">191k</td><td contenteditable="true">167k</td><td contenteditable="true">164k</td><td contenteditable="true">169k</td><td contenteditable="true">134k</td><td contenteditable="true">193k</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Vendas</strong></td>
+                                            <td contenteditable="true">1.790</td><td contenteditable="true">1.646</td><td contenteditable="true">1.678</td><td contenteditable="true">2.185</td><td contenteditable="true">2.404</td><td contenteditable="true">2.077</td><td contenteditable="true">1.872</td><td contenteditable="true">2.173</td><td contenteditable="true">1.842</td><td contenteditable="true">1.684</td><td contenteditable="true">3.239</td><td contenteditable="true">1.593</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Custo por Venda</strong></td>
+                                            <td contenteditable="true">R$ 3,88</td><td contenteditable="true">R$ 4,53</td><td contenteditable="true">R$ 5,07</td><td contenteditable="true">R$ 5,11</td><td contenteditable="true">R$ 4,41</td><td contenteditable="true">R$ 4,57</td><td contenteditable="true">R$ 5,02</td><td contenteditable="true">R$ 4,70</td><td contenteditable="true">R$ 5,22</td><td contenteditable="true">R$ 6,12</td><td contenteditable="true">R$ 2.56</td><td contenteditable="true">R$ 4,59</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>ROI / ROAS</strong></td>
+                                            <td contenteditable="true">51.0</td><td contenteditable="true">43.0</td><td contenteditable="true">39.0</td><td contenteditable="true">39.0</td><td contenteditable="true">46.0</td><td contenteditable="true">45.0</td><td contenteditable="true">42.0</td><td contenteditable="true">42.0</td><td contenteditable="true">39.0</td><td contenteditable="true">35.0</td><td contenteditable="true">91.0</td><td contenteditable="true">46.0</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Valor de Venda</strong></td>
+                                            <td contenteditable="true">R$ 352k</td><td contenteditable="true">R$ 320k</td><td contenteditable="true">R$ 331k</td><td contenteditable="true">R$ 433k</td><td contenteditable="true">R$ 491k</td><td contenteditable="true">R$ 424k</td><td contenteditable="true">R$ 393k</td><td contenteditable="true">R$ 428k</td><td contenteditable="true">R$ 377k</td><td contenteditable="true">R$ 361k</td><td contenteditable="true">R$ 759k</td><td contenteditable="true">R$ 339k</td>
+                                        </tr>
+                                        <tr class="total-row">
+                                            <td contenteditable="true"><strong>Investimento</strong></td>
+                                            <td contenteditable="true">R$ 6.951</td><td contenteditable="true">R$ 7.457</td><td contenteditable="true">R$ 8.505</td><td contenteditable="true">R$ 11.169</td><td contenteditable="true">R$ 10.593</td><td contenteditable="true">R$ 9.498</td><td contenteditable="true">R$ 9.395</td><td contenteditable="true">R$ 10.209</td><td contenteditable="true">R$ 9.623</td><td contenteditable="true">R$ 10.303</td><td contenteditable="true">R$ 8.288</td><td contenteditable="true">R$ 7.315</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1084,53 +1233,53 @@
         <section id="google-ads" class="section-block">
             <div class="dash-header">
                 <div>
-                    <h2>Google Ads</h2>
-                    <p>Métricas gerais e campanhas de performance e pesquisa de Maio 2026</p>
+                    <h2 contenteditable="true">Google Ads</h2>
+                    <p contenteditable="true">Métricas gerais e campanhas de performance e pesquisa de Maio 2026</p>
                 </div>
             </div>
 
             <div class="kpi-grid">
                 <div class="kpi-card" style="--accent: var(--google-color)">
-                    <div class="kpi-label">Impressões</div>
-                    <div class="kpi-value">1.754.996</div>
-                    <div class="kpi-subtext">Visualizações dos anúncios</div>
+                    <div class="kpi-label" contenteditable="true">Impressões</div>
+                    <div class="kpi-value" contenteditable="true">1.754.996</div>
+                    <div class="kpi-subtext" contenteditable="true">Visualizações dos anúncios</div>
                 </div>
                 <div class="kpi-card" style="--accent: var(--google-color)">
-                    <div class="kpi-label">Cliques</div>
-                    <div class="kpi-value">75.905</div>
-                    <div class="kpi-subtext">Taxa de Cliques (CTR) de 4.32%</div>
+                    <div class="kpi-label" contenteditable="true">Cliques</div>
+                    <div class="kpi-value" contenteditable="true">75.905</div>
+                    <div class="kpi-subtext" contenteditable="true">Taxa de Cliques (CTR) de 4.32%</div>
                 </div>
                 <div class="kpi-card" style="--accent: var(--google-color)">
-                    <div class="kpi-label">Investimento</div>
-                    <div class="kpi-value">R$ 17.308,86</div>
-                    <div class="kpi-subtext">Gasto total na plataforma Google</div>
+                    <div class="kpi-label" contenteditable="true">Investimento</div>
+                    <div class="kpi-value" id="kpiGoogleInvestment" contenteditable="true">R$ 17.308,86</div>
+                    <div class="kpi-subtext" contenteditable="true">Gasto total na plataforma Google</div>
                 </div>
                 <div class="kpi-card" style="--accent: var(--google-color)">
-                    <div class="kpi-label">Conversões</div>
-                    <div class="kpi-value">4.235,97</div>
-                    <div class="kpi-subtext">ROAS Geral de 50.62x</div>
+                    <div class="kpi-label" contenteditable="true">Conversões</div>
+                    <div class="kpi-value" contenteditable="true">4.235,97</div>
+                    <div class="kpi-subtext" contenteditable="true">ROAS Geral de 50.62x</div>
                 </div>
             </div>
 
             <div class="glass-card">
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="card-title" contenteditable="true">
                         <div class="card-title-icon" style="background: var(--google-color)"></div>
                         Estratégia e Públicos do Google Ads
                     </div>
                 </div>
                 <div class="strategy-container">
                     <div class="strategy-block">
-                        <h4>Objetivo & Estratégia</h4>
-                        <p style="color: var(--text-muted); font-size: 0.925rem;">Foco em conversões diretas de vendas via e-commerce utilizando campanhas de Performance Max, anúncios de pesquisa inteligente de alta intenção e vídeos dinâmicos no YouTube.</p>
+                        <h4 contenteditable="true">Objetivo & Estratégia</h4>
+                        <p style="color: var(--text-muted); font-size: 0.925rem;" contenteditable="true">Foco em conversões diretas de vendas via e-commerce utilizando campanhas de Performance Max, anúncios de pesquisa inteligente de alta intenção e vídeos dinâmicos no YouTube.</p>
                     </div>
                     <div class="strategy-block">
-                        <h4>Públicos Segmentados</h4>
+                        <h4 contenteditable="true">Públicos Segmentados</h4>
                         <ul>
-                            <li>Públicos de concorrência direta e indireta</li>
-                            <li>App Fragrantica+ e público especializado de fragrâncias</li>
-                            <li>Audiência interessada em marcas correlatas (Natura e O Boticário)</li>
-                            <li>Públicos de interesse refinado em Perfumaria de Luxo</li>
+                            <li contenteditable="true">Públicos de concorrência direta e indireta</li>
+                            <li contenteditable="true">App Fragrantica+ e público especializado de fragrâncias</li>
+                            <li contenteditable="true">Audiência interessada em marcas correlatas (Natura e O Boticário)</li>
+                            <li contenteditable="true">Públicos de interesse refinado em Perfumaria de Luxo</li>
                         </ul>
                     </div>
                 </div>
@@ -1143,137 +1292,155 @@
                     <button class="tab-btn" onclick="switchGoogleMoMTab(event, 'google-mom-2025')">Comparativo MoM 2025</button>
                 </div>
 
-                <!-- MoM 2026 Table -->
                 <div id="google-mom-2026" class="mom-table-container active">
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Métrica</th>
-                                    <th>Janeiro</th>
-                                    <th>Fevereiro</th>
-                                    <th>Março</th>
-                                    <th>Abril</th>
-                                    <th>Maio</th>
-                                    <th>Junho</th>
-                                    <th>Julho</th>
-                                    <th>Agosto</th>
-                                    <th>Setembro</th>
-                                    <th>Outubro</th>
-                                    <th>Novembro</th>
-                                    <th>Dezembro</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Impressões</strong></td>
-                                    <td>2.1mi</td>
-                                    <td>1.5mi</td>
-                                    <td>1.8mi</td>
-                                    <td>1.5mi</td>
-                                    <td style="color: var(--accent); font-weight: 700;">1.7mi</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Cliques</strong></td>
-                                    <td>72,3mil</td>
-                                    <td>58mil</td>
-                                    <td>69,1mil</td>
-                                    <td>69,1mil</td>
-                                    <td style="color: var(--accent); font-weight: 700;">75mil</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Vendas</strong></td>
-                                    <td>4.336</td>
-                                    <td>3.337</td>
-                                    <td>4.461</td>
-                                    <td>3.700</td>
-                                    <td style="color: var(--accent); font-weight: 700;">4.365</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Custo por Venda</strong></td>
-                                    <td>R$ 4,04</td>
-                                    <td>R$ 4,60</td>
-                                    <td>R$ 3,80</td>
-                                    <td>R$ 4,34</td>
-                                    <td style="color: var(--accent); font-weight: 700;">R$ 3,96</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>ROAS</strong></td>
-                                    <td>43.35</td>
-                                    <td>41.52</td>
-                                    <td>51.06</td>
-                                    <td>45.28</td>
-                                    <td style="color: var(--accent); font-weight: 700;">52.11</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Valor de Venda</strong></td>
-                                    <td>R$ 758.675,20</td>
-                                    <td>R$ 637.697,33</td>
-                                    <td>R$ 865.941,57</td>
-                                    <td>R$ 727.969,02</td>
-                                    <td style="color: var(--accent); font-weight: 700;">R$ 901.918,27</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                                <tr class="total-row">
-                                    <td><strong>Investimento</strong></td>
-                                    <td>R$ 17.500,95</td>
-                                    <td>R$ 15.357,75</td>
-                                    <td>R$ 16.959,70</td>
-                                    <td>R$ 16.076,02</td>
-                                    <td style="color: #fff;">R$ 17.308,86</td>
-                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="resizable-wrapper">
+                        <div class="dimension-hud">
+                            <span>Largura:</span>
+                            <input type="range" min="300" max="1200" value="800" oninput="adjustWidth(this)">
+                            <span>Altura:</span>
+                            <input type="range" min="150" max="600" value="300" oninput="adjustHeight(this)">
+                        </div>
+                        <div class="resizable-container">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th contenteditable="true">Métrica</th>
+                                            <th contenteditable="true">Janeiro</th>
+                                            <th contenteditable="true">Fevereiro</th>
+                                            <th contenteditable="true">Março</th>
+                                            <th contenteditable="true">Abril</th>
+                                            <th contenteditable="true">Maio</th>
+                                            <th contenteditable="true">Junho</th>
+                                            <th contenteditable="true">Julho</th>
+                                            <th contenteditable="true">Agosto</th>
+                                            <th contenteditable="true">Setembro</th>
+                                            <th contenteditable="true">Outubro</th>
+                                            <th contenteditable="true">Novembro</th>
+                                            <th contenteditable="true">Dezembro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Impressões</strong></td>
+                                            <td contenteditable="true">2.1mi</td>
+                                            <td contenteditable="true">1.5mi</td>
+                                            <td contenteditable="true">1.8mi</td>
+                                            <td contenteditable="true">1.5mi</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">1.7mi</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Cliques</strong></td>
+                                            <td contenteditable="true">72,3mil</td>
+                                            <td contenteditable="true">58mil</td>
+                                            <td contenteditable="true">69,1mil</td>
+                                            <td contenteditable="true">69,1mil</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">75mil</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Vendas</strong></td>
+                                            <td contenteditable="true">4.336</td>
+                                            <td contenteditable="true">3.337</td>
+                                            <td contenteditable="true">4.461</td>
+                                            <td contenteditable="true">3.700</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">4.365</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Custo por Venda</strong></td>
+                                            <td contenteditable="true">R$ 4,04</td>
+                                            <td contenteditable="true">R$ 4,60</td>
+                                            <td contenteditable="true">R$ 3,80</td>
+                                            <td contenteditable="true">R$ 4,34</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">R$ 3,96</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>ROAS</strong></td>
+                                            <td contenteditable="true">43.35</td>
+                                            <td contenteditable="true">41.52</td>
+                                            <td contenteditable="true">51.06</td>
+                                            <td contenteditable="true">45.28</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">52.11</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Valor de Venda</strong></td>
+                                            <td contenteditable="true">R$ 758.675,20</td>
+                                            <td contenteditable="true">R$ 637.697,33</td>
+                                            <td contenteditable="true">R$ 865.941,57</td>
+                                            <td contenteditable="true">R$ 727.969,02</td>
+                                            <td style="color: var(--accent); font-weight: 700;" contenteditable="true">R$ 901.918,27</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                        <tr class="total-row">
+                                            <td contenteditable="true"><strong>Investimento</strong></td>
+                                            <td contenteditable="true">R$ 17.500,95</td>
+                                            <td contenteditable="true">R$ 15.357,75</td>
+                                            <td contenteditable="true">R$ 16.959,70</td>
+                                            <td contenteditable="true">R$ 16.076,02</td>
+                                            <td style="color: #fff;" id="tableGoogleMayInvestment" contenteditable="true">R$ 17.308,86</td>
+                                            <td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td><td contenteditable="true">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- MoM 2025 Table -->
                 <div id="google-mom-2025" class="mom-table-container" style="display: none;">
-                    <div class="table-responsive">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Métrica</th>
-                                    <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Impressões</strong></td>
-                                    <td>1.4mi</td><td>1.9mi</td><td>2.1mi</td><td>2.4mi</td><td>2.5mi</td><td>2.4mi</td><td>2.3mi</td><td>2.5mi</td><td>2.3mi</td><td>1.9mi</td><td>1.8mi</td><td>1.9mi</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Cliques</strong></td>
-                                    <td>65.0k</td><td>61.8k</td><td>71.0k</td><td>78.9k</td><td>82.0k</td><td>79.0k</td><td>74.8k</td><td>76.3k</td><td>72.1k</td><td>71.5k</td><td>94.0k</td><td>76.0k</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Vendas</strong></td>
-                                    <td>3.927</td><td>3.946</td><td>5.017</td><td>4.619</td><td>5.152</td><td>4.512</td><td>4.681</td><td>4.919</td><td>4.471</td><td>4.190</td><td>7.580</td><td>4.511</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Custo por Venda</strong></td>
-                                    <td>R$ 3,82</td><td>R$ 4,22</td><td>R$ 3,70</td><td>R$ 3,85</td><td>R$ 3,70</td><td>R$ 4,17</td><td>R$ 4,11</td><td>R$ 3,84</td><td>R$ 4,22</td><td>R$ 4,42</td><td>R$ 2,34</td><td>R$ 3,75</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>ROI</strong></td>
-                                    <td>45.0</td><td>42.0</td><td>46.0</td><td>46.91</td><td>47.1</td><td>44.2</td><td>44.2</td><td>45.4</td><td>42.77</td><td>41.24</td><td>85.57</td><td>46.69</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Valor de Venda</strong></td>
-                                    <td>R$ 674k</td><td>R$ 692k</td><td>R$ 871k</td><td>R$ 834k</td><td>R$ 898k</td><td>R$ 831k</td><td>R$ 851k</td><td>R$ 857k</td><td>R$ 807k</td><td>R$ 764k</td><td>R$ 1.519k</td><td>R$ 789k</td>
-                                </tr>
-                                <tr class="total-row">
-                                    <td><strong>Investimento</strong></td>
-                                    <td>R$ 14.992</td><td>R$ 16.671</td><td>R$ 18.710</td><td>R$ 17.781</td><td>R$ 19.043</td><td>R$ 18.800</td><td>R$ 19.262</td><td>R$ 18.889</td><td>R$ 18.871</td><td>R$ 18.530</td><td>R$ 17.758</td><td>R$ 16.911</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="resizable-wrapper">
+                        <div class="dimension-hud">
+                            <span>Largura:</span>
+                            <input type="range" min="300" max="1200" value="800" oninput="adjustWidth(this)">
+                            <span>Altura:</span>
+                            <input type="range" min="150" max="600" value="300" oninput="adjustHeight(this)">
+                        </div>
+                        <div class="resizable-container">
+                            <div class="table-responsive">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th contenteditable="true">Métrica</th>
+                                            <th contenteditable="true">Jan</th><th contenteditable="true">Fev</th><th contenteditable="true">Mar</th><th contenteditable="true">Abr</th><th contenteditable="true">Mai</th><th contenteditable="true">Jun</th><th contenteditable="true">Jul</th><th contenteditable="true">Ago</th><th contenteditable="true">Set</th><th contenteditable="true">Out</th><th contenteditable="true">Nov</th><th contenteditable="true">Dez</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Impressões</strong></td>
+                                            <td contenteditable="true">1.4mi</td><td contenteditable="true">1.9mi</td><td contenteditable="true">2.1mi</td><td contenteditable="true">2.4mi</td><td contenteditable="true">2.5mi</td><td contenteditable="true">2.4mi</td><td contenteditable="true">2.3mi</td><td contenteditable="true">2.5mi</td><td contenteditable="true">2.3mi</td><td contenteditable="true">1.9mi</td><td contenteditable="true">1.8mi</td><td contenteditable="true">1.9mi</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Cliques</strong></td>
+                                            <td contenteditable="true">65.0k</td><td contenteditable="true">61.8k</td><td contenteditable="true">71.0k</td><td contenteditable="true">78.9k</td><td contenteditable="true">82.0k</td><td contenteditable="true">79.0k</td><td contenteditable="true">74.8k</td><td contenteditable="true">76.3k</td><td contenteditable="true">72.1k</td><td contenteditable="true">71.5k</td><td contenteditable="true">94.0k</td><td contenteditable="true">76.0k</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Vendas</strong></td>
+                                            <td contenteditable="true">3.927</td><td contenteditable="true">3.946</td><td contenteditable="true">5.017</td><td contenteditable="true">4.619</td><td contenteditable="true">5.152</td><td contenteditable="true">4.512</td><td contenteditable="true">4.681</td><td contenteditable="true">4.919</td><td contenteditable="true">4.471</td><td contenteditable="true">4.190</td><td contenteditable="true">7.580</td><td contenteditable="true">4.511</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Custo por Venda</strong></td>
+                                            <td contenteditable="true">R$ 3,82</td><td contenteditable="true">R$ 4,22</td><td contenteditable="true">R$ 3,70</td><td contenteditable="true">R$ 3,85</td><td contenteditable="true">R$ 3,70</td><td contenteditable="true">R$ 4,17</td><td contenteditable="true">R$ 4,11</td><td contenteditable="true">R$ 3,84</td><td contenteditable="true">R$ 4,22</td><td contenteditable="true">R$ 4,42</td><td contenteditable="true">R$ 2,34</td><td contenteditable="true">R$ 3,75</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>ROI</strong></td>
+                                            <td contenteditable="true">45.0</td><td contenteditable="true">42.0</td><td contenteditable="true">46.0</td><td contenteditable="true">46.91</td><td contenteditable="true">47.1</td><td contenteditable="true">44.2</td><td contenteditable="true">44.2</td><td contenteditable="true">45.4</td><td contenteditable="true">42.77</td><td contenteditable="true">41.24</td><td contenteditable="true">85.57</td><td contenteditable="true">46.69</td>
+                                        </tr>
+                                        <tr>
+                                            <td contenteditable="true"><strong>Valor de Venda</strong></td>
+                                            <td contenteditable="true">R$ 674k</td><td contenteditable="true">R$ 692k</td><td contenteditable="true">R$ 871k</td><td contenteditable="true">R$ 834k</td><td contenteditable="true">R$ 898k</td><td contenteditable="true">R$ 831k</td><td contenteditable="true">R$ 851k</td><td contenteditable="true">R$ 857k</td><td contenteditable="true">R$ 807k</td><td contenteditable="true">R$ 764k</td><td contenteditable="true">R$ 1.519k</td><td contenteditable="true">R$ 789k</td>
+                                        </tr>
+                                        <tr class="total-row">
+                                            <td contenteditable="true"><strong>Investimento</strong></td>
+                                            <td contenteditable="true">R$ 14.992</td><td contenteditable="true">R$ 16.671</td><td contenteditable="true">R$ 18.710</td><td contenteditable="true">R$ 17.781</td><td contenteditable="true">R$ 19.043</td><td contenteditable="true">R$ 18.800</td><td contenteditable="true">R$ 19.262</td><td contenteditable="true">R$ 18.889</td><td contenteditable="true">R$ 18.871</td><td contenteditable="true">R$ 18.530</td><td contenteditable="true">R$ 17.758</td><td contenteditable="true">R$ 16.911</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1283,29 +1450,22 @@
         <section id="prax-ecommerce" class="section-block">
             <div class="dash-header">
                 <div>
-                    <h2>Prax - E-commerce</h2>
-                    <p>Visão geral unificada de vendas e detalhamento E-commerce vs Marketplace</p>
+                    <h2 contenteditable="true">Prax - E-commerce</h2>
+                    <p contenteditable="true">Visão geral unificada de vendas e detalhamento E-commerce vs Marketplace</p>
                 </div>
             </div>
 
             <div class="glass-card">
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="card-title" contenteditable="true">
                         <div class="card-title-icon" style="background: var(--prax-color)"></div>
                         Desempenho Consolidado por Período
                     </div>
                 </div>
 
                 <div class="prax-timeline-container">
-                    <!-- Nav Timeline lists -->
-                    <div class="prax-months-nav" id="praxMonthsList">
-                        <!-- SCRIPT WILL POPULATE THIS -->
-                    </div>
-
-                    <!-- Details Card Visual -->
-                    <div class="prax-details-view" id="praxDetailsPanel">
-                        <!-- SCRIPT WILL POPULATE THIS -->
-                    </div>
+                    <div class="prax-months-nav" id="praxMonthsList"></div>
+                    <div class="prax-details-view" id="praxDetailsPanel"></div>
                 </div>
             </div>
         </section>
@@ -1314,14 +1474,14 @@
         <section id="campaigns" class="section-block">
             <div class="dash-header">
                 <div>
-                    <h2>Comparativo de Campanhas</h2>
-                    <p>Análise de melhor e pior performance de criativos e campanhas de anúncios</p>
+                    <h2 contenteditable="true">Comparativo de Campanhas</h2>
+                    <p contenteditable="true">Análise de melhor e pior performance de criativos e campanhas de anúncios</p>
                 </div>
             </div>
 
             <div class="glass-card">
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="card-title" contenteditable="true">
                         <div class="card-title-icon" style="background: var(--accent)"></div>
                         Melhores e Piores Campanhas - Maio 2026
                     </div>
@@ -1330,130 +1490,130 @@
                 <div class="campaign-split">
                     <!-- BEST -->
                     <div class="campaign-status-card best">
-                        <h4>🔥 TOP 5 - Campanhas com Melhor ROAS</h4>
+                        <h4 contenteditable="true">🔥 TOP 5 - Campanhas com Melhor ROAS</h4>
                         
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] [SEARCH-VENDA] - OUTROS ESTADOS</span>
-                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] [SEARCH-VENDA] - OUTROS ESTADOS</span>
+                                <span class="campaign-platform-badge platform-google" contenteditable="true">Google Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 1.824,79</strong></div>
-                                <div>Receita: <strong>R$ 207.256,40</strong></div>
-                                <div>ROAS: <strong style="color: #00e676;">113.58x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 1.824,79</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 207.256,40</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #00e676;" contenteditable="true">113.58x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] [SEARCH-VENDA] - SÃO PAULO</span>
-                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] [SEARCH-VENDA] - SÃO PAULO</span>
+                                <span class="campaign-platform-badge platform-google" contenteditable="true">Google Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 2.432,69</strong></div>
-                                <div>Receita: <strong>R$ 157.941,92</strong></div>
-                                <div>ROAS: <strong style="color: #00e676;">64.92x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 2.432,69</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 157.941,92</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #00e676;" contenteditable="true">64.92x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] [PURCHASE] [ADVANTAGE+] [CATÁLOGO]</span>
-                                <span class="campaign-platform-badge platform-facebook">Meta Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] [PURCHASE] [ADVANTAGE+] [CATÁLOGO]</span>
+                                <span class="campaign-platform-badge platform-facebook" contenteditable="true">Meta Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 2.484,57</strong></div>
-                                <div>Receita: <strong>R$ 128.964,60</strong></div>
-                                <div>ROAS: <strong style="color: #00e676;">51.91x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 2.484,57</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 128.964,60</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #00e676;" contenteditable="true">51.91x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] MAX PERFORMANCE [BR] CONCORRENTES INDIRETOS TESTE A/B ROAS (B)</span>
-                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] MAX PERFORMANCE [BR] CONCORRENTES INDIRETOS TESTE A/B ROAS (B)</span>
+                                <span class="campaign-platform-badge platform-google" contenteditable="true">Google Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 2.248,77</strong></div>
-                                <div>Receita: <strong>R$ 104.097,59</strong></div>
-                                <div>ROAS: <strong style="color: #00e676;">46.29x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 2.248,77</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 104.097,59</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #00e676;" contenteditable="true">46.29x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] MAX PERFORMANCE [BR] CONCORRENTES DIRETOS</span>
-                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] MAX PERFORMANCE [BR] CONCORRENTES DIRETOS</span>
+                                <span class="campaign-platform-badge platform-google" contenteditable="true">Google Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 1.217,37</strong></div>
-                                <div>Receita: <strong>R$ 51.665,28</strong></div>
-                                <div>ROAS: <strong style="color: #00e676;">42.44x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 1.217,37</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 51.665,28</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #00e676;" contenteditable="true">42.44x</strong></div>
                             </div>
                         </div>
                     </div>
 
                     <!-- WORST -->
                     <div class="campaign-status-card worst">
-                        <h4>⚠️ PIORES 5 - Menor Desempenho / ROAS</h4>
+                        <h4 contenteditable="true">⚠️ PIORES 5 - Menor Desempenho / ROAS</h4>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] [ENGAJAMENTO] [LOJAS FÍSICAS]</span>
-                                <span class="campaign-platform-badge platform-facebook">Meta Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] [ENGAJAMENTO] [LOJAS FÍSICAS]</span>
+                                <span class="campaign-platform-badge platform-facebook" contenteditable="true">Meta Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 2.251,51</strong></div>
-                                <div>Receita: <strong>R$ 1.830,36</strong></div>
-                                <div>ROAS: <strong style="color: #ea4335;">0.81x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 2.251,51</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 1.830,36</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #ea4335;" contenteditable="true">0.81x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] [SEARCH - VENDA] [CONTRATIPO] - BR 07.09</span>
-                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] [SEARCH - VENDA] [CONTRATIPO] - BR 07.09</span>
+                                <span class="campaign-platform-badge platform-google" contenteditable="true">Google Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 608,47</strong></div>
-                                <div>Receita: <strong>R$ 7.632,77</strong></div>
-                                <div>ROAS: <strong style="color: #ff8a80;">12.54x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 608,47</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 7.632,77</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #ff8a80;" contenteditable="true">12.54x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] [PURCHASE] [ANIVERSARIANTES]</span>
-                                <span class="campaign-platform-badge platform-facebook">Meta Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] [PURCHASE] [ANIVERSARIANTES]</span>
+                                <span class="campaign-platform-badge platform-facebook" contenteditable="true">Meta Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 927,75</strong></div>
-                                <div>Receita: <strong>R$ 15.181,87</strong></div>
-                                <div>ROAS: <strong style="color: #ff8a80;">16.36x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 927,75</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 15.181,87</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #ff8a80;" contenteditable="true">16.36x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] [YOUTUBE] [BR] 07.09 #2</span>
-                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] [YOUTUBE] [BR] 07.09 #2</span>
+                                <span class="campaign-platform-badge platform-google" contenteditable="true">Google Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 708,84</strong></div>
-                                <div>Receita: <strong>R$ 21.109,81</strong></div>
-                                <div>ROAS: <strong style="color: #ff8a80;">29.78x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 708,84</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 21.109,81</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #ff8a80;" contenteditable="true">29.78x</strong></div>
                             </div>
                         </div>
 
                         <div class="campaign-item-box">
                             <div class="campaign-item-header">
-                                <span class="campaign-item-name">[MM] MAX PERFORMANCE [BR] CONCORRENTES INDIRETOS</span>
-                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                                <span class="campaign-item-name" contenteditable="true">[MM] MAX PERFORMANCE [BR] CONCORRENTES INDIRETOS</span>
+                                <span class="campaign-platform-badge platform-google" contenteditable="true">Google Ads</span>
                             </div>
                             <div class="campaign-item-row">
-                                <div>Gasto: <strong>R$ 1.522,13</strong></div>
-                                <div>Receita: <strong>R$ 52.714,21</strong></div>
-                                <div>ROAS: <strong style="color: #ff8a80;">34.63x</strong></div>
+                                <div contenteditable="true">Gasto: <strong contenteditable="true">R$ 1.522,13</strong></div>
+                                <div contenteditable="true">Receita: <strong contenteditable="true">R$ 52.714,21</strong></div>
+                                <div contenteditable="true">ROAS: <strong style="color: #ff8a80;" contenteditable="true">34.63x</strong></div>
                             </div>
                         </div>
                     </div>
@@ -1465,24 +1625,22 @@
         <section id="demographics" class="section-block">
             <div class="dash-header">
                 <div>
-                    <h2>Públicos e Dados Sociodemográficos</h2>
-                    <p>Perfil de usuários, gênero, idade, dispositivos e distribuição por estados</p>
+                    <h2 contenteditable="true">Públicos e Dados Sociodemográficos</h2>
+                    <p contenteditable="true">Perfil de usuários, gênero, idade, dispositivos e distribuição por estados</p>
                 </div>
             </div>
 
             <div class="glass-card">
                 <div class="charts-flex-grid">
-                    <!-- Devices -->
                     <div class="chart-box">
-                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">📱 Principais Dispositivos</h4>
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;" contenteditable="true">📱 Principais Dispositivos</h4>
                         <div class="chart-container-el">
                             <canvas id="devicesChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- Gender -->
                     <div class="chart-box">
-                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">👥 Gênero do Público-Alvo</h4>
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;" contenteditable="true">👥 Gênero do Público-Alvo</h4>
                         <div class="chart-container-el">
                             <canvas id="genderChart"></canvas>
                         </div>
@@ -1492,17 +1650,15 @@
 
             <div class="glass-card">
                 <div class="charts-flex-grid">
-                    <!-- Age -->
-                    <div class="chart-box" style="grid-column: span 1;">
-                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">🎂 Distribuição de Idades</h4>
+                    <div class="chart-box">
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;" contenteditable="true">🎂 Distribuição de Idades</h4>
                         <div class="chart-container-el">
                             <canvas id="ageChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- Geo -->
-                    <div class="chart-box" style="grid-column: span 1;">
-                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">📍 Localização dos Clientes</h4>
+                    <div class="chart-box">
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;" contenteditable="true">📍 Localização dos Clientes</h4>
                         <div class="chart-container-el">
                             <canvas id="locationChart"></canvas>
                         </div>
@@ -1515,32 +1671,32 @@
         <section id="recompra" class="section-block">
             <div class="dash-header">
                 <div>
-                    <h2>Recompra e Fidelização</h2>
-                    <p>Análise de novas vendas vs compras recorrentes do e-commerce</p>
+                    <h2 contenteditable="true">Recompra e Fidelização</h2>
+                    <p contenteditable="true">Análise de novas vendas vs compras recorrentes do e-commerce</p>
                 </div>
             </div>
 
             <div class="kpi-grid">
                 <div class="kpi-card" style="--accent: #ffd600">
-                    <div class="kpi-label">Faturamento Total (Maio 2026)</div>
-                    <div class="kpi-value">R$ 2.027.483,88</div>
-                    <div class="kpi-subtext">Valor total transacionado</div>
+                    <div class="kpi-label" contenteditable="true">Faturamento Total (Maio 2026)</div>
+                    <div class="kpi-value" contenteditable="true">R$ 2.027.483,88</div>
+                    <div class="kpi-subtext" contenteditable="true">Valor total transacionado</div>
                 </div>
                 <div class="kpi-card" style="--accent: #00e676">
-                    <div class="kpi-label">Valor de Recompra</div>
-                    <div class="kpi-value">R$ 1.604.600,58</div>
-                    <div class="kpi-subtext">Faturamento originado de recompras</div>
+                    <div class="kpi-label" contenteditable="true">Valor de Recompra</div>
+                    <div class="kpi-value" contenteditable="true">R$ 1.604.600,58</div>
+                    <div class="kpi-subtext" contenteditable="true">Faturamento originado de recompras</div>
                 </div>
                 <div class="kpi-card" style="--accent: var(--accent)">
-                    <div class="kpi-label">Taxa de Recompra</div>
-                    <div class="kpi-value">79.14%</div>
-                    <div class="kpi-subtext">Porcentagem de pedidos recorrentes</div>
+                    <div class="kpi-label" contenteditable="true">Taxa de Recompra</div>
+                    <div class="kpi-value" contenteditable="true">79.14%</div>
+                    <div class="kpi-subtext" contenteditable="true">Porcentagem de pedidos recorrentes</div>
                 </div>
             </div>
 
             <div class="glass-card">
                 <div class="card-header">
-                    <div class="card-title">
+                    <div class="card-title" contenteditable="true">
                         <div class="card-title-icon" style="background: #ffd600"></div>
                         Evolução Mensal da Taxa de Recompra
                     </div>
@@ -1551,27 +1707,105 @@
             </div>
         </section>
 
-        <!-- CLOSING FOOTER -->
-        <footer class="closing-footer">
-            <h3>Muito obrigado pela parceria!</h3>
-            <p style="color: var(--text-muted);">Relatório gerado em alta fidelidade a partir de métricas nativas do sistema.</p>
-            
-            <div class="closing-footer-layout">
-                <div class="footer-logo-mike">MIKE<span>ADS</span></div>
-                <div class="closing-divider"></div>
-                <div style="text-align: left; font-size: 0.8rem; color: var(--text-muted);">
-                    <strong>THERA COSMÉTICOS</strong><br>
-                    Gestão de Mídia & Analytics | Maio 2026
+        <!-- FINALIZATION SECTION (AGRADECIMENTO + KPIs) -->
+        <section id="finalizacao" class="section-block">
+            <div class="final-presentation-block">
+                <h2 class="thank-you-title" contenteditable="true">Muito obrigado pela parceria!</h2>
+                
+                <div class="kpi-grid" style="width: 100%; max-width: 900px; margin-top: 1rem;">
+                    <div class="kpi-card" style="--accent: var(--accent)">
+                        <div class="kpi-label" contenteditable="true">Investimento Total (Google + Meta)</div>
+                        <div class="kpi-value" id="coverTotalInvestment" contenteditable="true">R$ 29.581,70</div>
+                        <div class="kpi-subtext" contenteditable="true">Investido apenas em Maio 2026</div>
+                    </div>
+                    <div class="kpi-card" style="--accent: #00e676">
+                        <div class="kpi-label" contenteditable="true">Receita E-commerce</div>
+                        <div class="kpi-value" contenteditable="true">R$ 2.027.483,88</div>
+                        <div class="kpi-subtext" contenteditable="true">Faturamento gerado no período</div>
+                    </div>
+                    <div class="kpi-card" style="--accent: #ffd600">
+                        <div class="kpi-label" contenteditable="true">ROI Geral</div>
+                        <div class="kpi-value" contenteditable="true">63.69x</div>
+                        <div class="kpi-subtext" contenteditable="true">Retorno sobre investimento</div>
+                    </div>
+                </div>
+
+                <div class="final-branding-card" style="background: transparent; border: none; padding: 0;">
+                    <!-- Closing Signature Block -->
+                    <div class="closing-footer-layout">
+                        <div class="footer-logo-mike" contenteditable="true">MIKE<span>ADS</span></div>
+                        <div class="closing-divider"></div>
+                        <div style="text-align: left; font-size: 0.8rem; color: var(--text-muted);">
+                            <strong style="color: #fff; display: block; margin-bottom: 0.25rem;" contenteditable="true">THERA COSMÉTICOS</strong>
+                            <span contenteditable="true">Gestão de Mídia & Analytics | Maio 2026</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
+        </section>
     </main>
 </div>
 
+<!-- Floating Mode HUD (indicates live-editing is enabled) -->
+<div class="mode-hud">
+    <div class="mode-indicator"></div>
+    <span style="font-size: 0.85rem; font-weight: 700; color: #fff;">Modo Edição Ativo</span>
+</div>
+
 <script>
+    // Adjust Dimension HUD functionality
+    function adjustWidth(input) {
+        const wrapper = input.closest('.resizable-wrapper');
+        const container = wrapper.querySelector('.resizable-container');
+        container.style.width = input.value + 'px';
+    }
+
+    function adjustHeight(input) {
+        const wrapper = input.closest('.resizable-wrapper');
+        const container = wrapper.querySelector('.resizable-container');
+        container.style.height = input.value + 'px';
+    }
+
+    // Dynamic sum for cover page investment
+    function recalculateTotalInvestment() {
+        const metaValEl = document.getElementById('kpiMetaInvestment');
+        const googleValEl = document.getElementById('kpiGoogleInvestment');
+        
+        const parseMoney = (text) => {
+            const clean = text.replace(/[^\d,.-]/g, '').replace(/\./g, '').replace(',', '.');
+            return parseFloat(clean) || 0;
+        };
+
+        const total = parseMoney(metaValEl.innerText) + parseMoney(googleValEl.innerText);
+        const formatted = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        
+        document.getElementById('coverTotalInvestment').innerText = formatted;
+        document.getElementById('tableMetaMayInvestment').innerText = metaValEl.innerText;
+        document.getElementById('tableGoogleMayInvestment').innerText = googleValEl.innerText;
+    }
+
+    // Bind event listeners to Meta & Google Investment inputs to auto-update
+    document.getElementById('kpiMetaInvestment').addEventListener('input', recalculateTotalInvestment);
+    document.getElementById('kpiGoogleInvestment').addEventListener('input', recalculateTotalInvestment);
+
+    // Fullscreen presentation API trigger
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                alert(`Erro ao tentar ativar tela cheia: ${err.message}`);
+            });
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+
     // Navigation routing logic
     document.querySelectorAll('.nav-item').forEach(item => {
         item.addEventListener('click', function(e) {
+            if (e.target.hasAttribute('contenteditable') || e.target.closest('[contenteditable="true"]')) return;
+            
             e.preventDefault();
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             this.classList.add('active');
@@ -1587,6 +1821,67 @@
         });
     });
 
+    // Drag and Drop ordering for navigation links
+    let dragSourceEl = null;
+
+    function handleDragStart(e) {
+        dragSourceEl = e.currentTarget;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', e.currentTarget.innerHTML);
+        e.dataTransfer.setData('text/plain', e.currentTarget.getAttribute('data-target'));
+        e.currentTarget.style.opacity = '0.4';
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        e.currentTarget.classList.add('drag-over');
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDragLeave(e) {
+        e.currentTarget.classList.remove('drag-over');
+    }
+
+    function handleDrop(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+        
+        if (dragSourceEl !== e.currentTarget) {
+            const sourceHTML = dragSourceEl.innerHTML;
+            const sourceTarget = dragSourceEl.getAttribute('data-target');
+            
+            dragSourceEl.innerHTML = e.currentTarget.innerHTML;
+            dragSourceEl.setAttribute('data-target', e.currentTarget.getAttribute('data-target'));
+            
+            e.currentTarget.innerHTML = sourceHTML;
+            e.currentTarget.setAttribute('data-target', sourceTarget);
+            
+            const wasActive = e.currentTarget.classList.contains('active');
+            const sourceActive = dragSourceEl.classList.contains('active');
+            
+            if (wasActive) {
+                e.currentTarget.classList.remove('active');
+                dragSourceEl.classList.add('active');
+            } else if (sourceActive) {
+                dragSourceEl.classList.remove('active');
+                e.currentTarget.classList.add('active');
+            }
+        }
+        e.currentTarget.classList.remove('drag-over');
+        return false;
+    }
+
+    function handleDragEnd(e) {
+        e.currentTarget.style.opacity = '1';
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('drag-over');
+        });
+    }
+
     // Helper functions to toggle sub tables in Meta / Google MoM
     function switchMetaMoMTab(e, id) {
         const container = e.target.closest('.glass-card');
@@ -1596,6 +1891,7 @@
         document.getElementById(id).style.display = 'block';
     }
 
+    // Helper functions to toggle sub tables in Google MoM
     function switchGoogleMoMTab(e, id) {
         const container = e.target.closest('.glass-card');
         container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1634,10 +1930,13 @@
             const btn = document.createElement('button');
             btn.className = `month-selector-btn ${index === praxData.length - 1 ? 'active' : ''}`;
             btn.innerHTML = `
-                <span>${data.month}</span>
-                <span class="month-btn-year">${data.year}</span>
+                <span contenteditable="true">${data.month}</span>
+                <span class="month-btn-year" contenteditable="true">${data.year}</span>
             `;
-            btn.onclick = () => selectPraxMonth(index);
+            btn.onclick = (e) => {
+                if (e.target.hasAttribute('contenteditable')) return;
+                selectPraxMonth(index);
+            };
             navContainer.appendChild(btn);
         });
 
@@ -1645,7 +1944,6 @@
     }
 
     function selectPraxMonth(index) {
-        // Handle Active Button styling
         const btns = document.querySelectorAll('.month-selector-btn');
         btns.forEach((btn, idx) => {
             if (idx === index) btn.classList.add('active');
@@ -1658,88 +1956,99 @@
         panel.innerHTML = `
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
                 <div class="kpi-card" style="--accent-grad: linear-gradient(135deg, #00e676 0%, #00b0ff 100%)">
-                    <div class="kpi-label">Total Vendido (${data.month} ${data.year})</div>
-                    <div class="kpi-value" style="font-size: 2rem;">R$ ${data.total}</div>
-                    <div class="kpi-subtext">ROI Geral de: <strong>${data.roi}</strong></div>
+                    <div class="kpi-label" contenteditable="true">Total Vendido (${data.month} ${data.year})</div>
+                    <div class="kpi-value" style="font-size: 2rem;" contenteditable="true">R$ ${data.total}</div>
+                    <div class="kpi-subtext" contenteditable="true">ROI Geral de: <strong contenteditable="true">${data.roi}</strong></div>
                 </div>
                 <div class="kpi-card" style="--accent-grad: linear-gradient(135deg, #00d2ff 0%, #1877F2 100%)">
-                    <div class="kpi-label">Investimento em Marketing</div>
-                    <div class="kpi-value" style="font-size: 2rem;">R$ ${data.inv}</div>
-                    <div class="kpi-subtext">Lucro Líquido: <strong>R$ ${data.lucro}</strong></div>
+                    <div class="kpi-label" contenteditable="true">Investimento em Marketing</div>
+                    <div class="kpi-value" style="font-size: 2rem;" contenteditable="true">R$ ${data.inv}</div>
+                    <div class="kpi-subtext" contenteditable="true">Lucro Líquido: <strong contenteditable="true">R$ ${data.lucro}</strong></div>
                 </div>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
                 <div class="kpi-card">
-                    <div class="kpi-label">Taxa Conversão</div>
-                    <div class="kpi-value" style="font-size: 1.35rem;">${data.conv}</div>
+                    <div class="kpi-label" contenteditable="true">Taxa Conversão</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;" contenteditable="true">${data.conv}</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">CAC</div>
-                    <div class="kpi-value" style="font-size: 1.35rem;">R$ ${data.cac}</div>
+                    <div class="kpi-label" contenteditable="true">CAC</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;" contenteditable="true">R$ ${data.cac}</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">CPA</div>
-                    <div class="kpi-value" style="font-size: 1.35rem;">R$ ${data.cpa}</div>
+                    <div class="kpi-label" contenteditable="true">CPA</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;" contenteditable="true">R$ ${data.cpa}</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">Pedidos</div>
-                    <div class="kpi-value" style="font-size: 1.35rem;">${data.pedidos}</div>
+                    <div class="kpi-label" contenteditable="true">Pedidos</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;" contenteditable="true">${data.pedidos}</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">Ticket Médio</div>
-                    <div class="kpi-value" style="font-size: 1.35rem;">R$ ${data.ticket}</div>
+                    <div class="kpi-label" contenteditable="true">Ticket Médio</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;" contenteditable="true">R$ ${data.ticket}</div>
                 </div>
                 <div class="kpi-card">
-                    <div class="kpi-label">Clientes</div>
-                    <div class="kpi-value" style="font-size: 1.35rem;">${data.clientes}</div>
+                    <div class="kpi-label" contenteditable="true">Clientes</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;" contenteditable="true">${data.clientes}</div>
                 </div>
             </div>
 
-            <h3 style="font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 1rem; color: #fff;">Desdobramento por Canal de Venda</h3>
-            <div class="table-responsive">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Canal</th>
-                            <th>Investimento</th>
-                            <th>Receita</th>
-                            <th>ROI</th>
-                            <th>ROAS</th>
-                            <th>CPA</th>
-                            <th>Taxa de Conversão</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>E-commerce</strong></td>
-                            <td>R$ ${data.inv}</td>
-                            <td>R$ ${data.ecommerce}</td>
-                            <td>${data.roi_eco}</td>
-                            <td>${data.roi_eco}</td>
-                            <td>R$ ${data.cpa}</td>
-                            <td>${data.conv}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Marketplace</strong></td>
-                            <td>R$ 0,00</td>
-                            <td>R$ ${data.marketplace}</td>
-                            <td>0.00x</td>
-                            <td>Não disponível</td>
-                            <td>R$ 0,00</td>
-                            <td>Não disponível</td>
-                        </tr>
-                        <tr class="total-row">
-                            <td><strong>Total</strong></td>
-                            <td>R$ ${data.inv}</td>
-                            <td>R$ ${data.total}</td>
-                            <td>${data.roi}</td>
-                            <td>${data.roi_eco}</td>
-                            <td>R$ ${data.cpa}</td>
-                            <td>${data.conv}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <h3 style="font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 1rem; color: #fff;" contenteditable="true">Desdobramento por Canal de Venda</h3>
+            
+            <div class="resizable-wrapper">
+                <div class="dimension-hud">
+                    <span>Largura:</span>
+                    <input type="range" min="300" max="1200" value="800" oninput="adjustWidth(this)">
+                    <span>Altura:</span>
+                    <input type="range" min="150" max="600" value="300" oninput="adjustHeight(this)">
+                </div>
+                <div class="resizable-container">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th contenteditable="true">Canal</th>
+                                    <th contenteditable="true">Investimento</th>
+                                    <th contenteditable="true">Receita</th>
+                                    <th contenteditable="true">ROI</th>
+                                    <th contenteditable="true">ROAS</th>
+                                    <th contenteditable="true">CPA</th>
+                                    <th contenteditable="true">Taxa de Conversão</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td contenteditable="true"><strong>E-commerce</strong></td>
+                                    <td contenteditable="true">R$ ${data.inv}</td>
+                                    <td contenteditable="true">R$ ${data.ecommerce}</td>
+                                    <td contenteditable="true">${data.roi_eco}</td>
+                                    <td contenteditable="true">${data.roi_eco}</td>
+                                    <td contenteditable="true">R$ ${data.cpa}</td>
+                                    <td contenteditable="true">${data.conv}</td>
+                                </tr>
+                                <tr>
+                                    <td contenteditable="true"><strong>Marketplace</strong></td>
+                                    <td contenteditable="true">R$ 0,00</td>
+                                    <td contenteditable="true">R$ ${data.marketplace}</td>
+                                    <td contenteditable="true">0.00x</td>
+                                    <td contenteditable="true">Não disponível</td>
+                                    <td contenteditable="true">R$ 0,00</td>
+                                    <td contenteditable="true">Não disponível</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td contenteditable="true"><strong>Total</strong></td>
+                                    <td contenteditable="true">R$ ${data.inv}</td>
+                                    <td contenteditable="true">R$ ${data.total}</td>
+                                    <td contenteditable="true">${data.roi}</td>
+                                    <td contenteditable="true">${data.roi_eco}</td>
+                                    <td contenteditable="true">R$ ${data.cpa}</td>
+                                    <td contenteditable="true">${data.conv}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         `;
     }
@@ -1747,6 +2056,7 @@
     // Chart.js Configuration
     window.onload = function() {
         initPraxWidget();
+        recalculateTotalInvestment();
 
         // Devices Doughnut Chart
         new Chart(document.getElementById('devicesChart'), {
@@ -1801,7 +2111,7 @@
                 labels: ['18 a 24', '25 a 34', '35 a 44', '45 a 54', '55 a 64', 'gt64', 'Indeterminado'],
                 datasets: [{
                     label: 'Usuários por faixa de idade',
-                    data: [80, 200, 160, 110, 70, 30, 560], // Simulated heights based on graphic scale representation
+                    data: [80, 200, 160, 110, 70, 30, 560],
                     backgroundColor: '#00d2ff',
                     borderRadius: 4
                 }]
@@ -1819,13 +2129,13 @@
             }
         });
 
-        // Geo Map Representation (Simulating location pie values)
+        // Geo Map Representation
         new Chart(document.getElementById('locationChart'), {
             type: 'pie',
             data: {
                 labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais', 'Rio Grande do Sul', 'Paraná', 'Santa Catarina', 'Outros'],
                 datasets: [{
-                    data: [40.7, 11.4, 10.8, 5.0, 4.1, 3.4, 24.6], // Total sum of Outros + Ceará + Goiás + Bahia = 24.6%
+                    data: [40.7, 11.4, 10.8, 5.0, 4.1, 3.4, 24.6],
                     backgroundColor: ['#00d2ff', '#1877F2', '#ffd600', '#00e676', '#a855f7', '#f97316', '#4b5563'],
                     borderWidth: 0
                 }]
@@ -1850,7 +2160,7 @@
                 datasets: [
                     {
                         label: 'Recompra (%)',
-                        data: [82.61, 80.49, 80.20, 80.56, 82.42, 83.49, 79.14, 79.14], // Extracted from matching pages
+                        data: [82.61, 80.49, 80.20, 80.56, 82.42, 83.49, 79.14, 79.14],
                         type: 'line',
                         borderColor: '#ffd600',
                         borderWidth: 2,
