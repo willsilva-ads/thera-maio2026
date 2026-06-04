@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thera Cosméticos - Relatório de Performance - Maio 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-main: #060913;
+            --bg-card: rgba(13, 20, 38, 0.45);
+            --bg-card-hover: rgba(20, 30, 58, 0.6);
+            --border-card: rgba(255, 255, 255, 0.05);
+            --accent: #00d2ff;
+            --accent-glow: rgba(0, 210, 255, 0.15);
+            --accent-rgb: 0, 210, 255;
+            --meta-color: #1877F2;
+            --google-color: #ea4335;
+            --prax-color: #00e676;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-glow: rgba(255, 255, 255, 0.05);
+            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Cover Section styling */
+        .cover-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at 80% 20%, rgba(0, 210, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 10% 80%, rgba(24, 119, 242, 0.08) 0%, transparent 50%);
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .cover-glow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.15) 0%, transparent 70%);
+            top: 20%;
+            left: 5%;
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        .cover-content {
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .cover-left h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-left p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cover-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 210, 255, 0.1);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .cover-right {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Abstract Cover Art */
+        .cover-art {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6,9,19,0.9) 0%, rgba(13,20,38,0.4) 100%);
+            border: 2px solid rgba(0, 210, 255, 0.2);
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .cover-art::before {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border-radius: 50%;
+            border: 1px dashed rgba(24, 119, 242, 0.3);
+            animation: rotateClockwise 20s linear infinite;
+        }
+
+        .cover-art::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            right: 20%;
+            bottom: 20%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.4) 0%, rgba(24, 119, 242, 0.1) 100%);
+            filter: blur(20px);
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes rotateClockwise {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* App Layout Grid */
+        .app-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            background-color: #0b0f19;
+            border-right: 1px solid var(--border-card);
+            padding: 2.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 100;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent) 0%, #1877F2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #fff;
+            font-size: 1.25rem;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 0.925rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active a, .nav-item a:hover {
+            color: #fff;
+            background: rgba(0, 210, 255, 0.08);
+            border-left: 3px solid var(--accent);
+            padding-left: calc(1rem - 3px);
+        }
+
+        .footer-branding {
+            border-top: 1px solid var(--border-card);
+            padding-top: 1.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-branding strong {
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            padding: 3rem;
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 50% 0%, rgba(13, 20, 38, 0.2) 0%, transparent 60%);
+        }
+
+        /* Dashboard Header */
+        .dash-header {
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 1px solid var(--border-card);
+            padding-bottom: 1.5rem;
+        }
+
+        .dash-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dash-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Section Layouts */
+        .section-block {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .section-block.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 210, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: var(--bg-card-hover);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-title-icon {
+            width: 8px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* KPI Grids */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .kpi-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent-grad, var(--accent));
+        }
+
+        .kpi-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .kpi-subtext {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Interactive Tables */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-card);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            font-weight: 600;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-card);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .data-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--border-card);
+            color: var(--text-main);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .data-table tr.total-row {
+            background: rgba(0, 210, 255, 0.05);
+            font-weight: 700;
+        }
+
+        .data-table tr.total-row td {
+            color: #fff;
+            border-top: 1px solid rgba(0, 210, 255, 0.2);
+        }
+
+        /* Strategy blocks */
+        .strategy-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .strategy-block {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .strategy-block h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .strategy-block ul {
+            list-style-position: inside;
+            color: var(--text-muted);
+            font-size: 0.925rem;
+        }
+
+        .strategy-block ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Campaign lists split layout */
+        .campaign-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .campaign-status-card {
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border-card);
+        }
+
+        .campaign-status-card.best {
+            background: rgba(0, 230, 118, 0.02);
+            border-color: rgba(0, 230, 118, 0.1);
+        }
+
+        .campaign-status-card.worst {
+            background: rgba(234, 67, 53, 0.02);
+            border-color: rgba(234, 67, 53, 0.1);
+        }
+
+        .campaign-status-card h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .campaign-status-card.best h4 { color: #00e676; }
+        .campaign-status-card.worst h4 { color: #ea4335; }
+
+        .campaign-item-box {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--border-card);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .campaign-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .campaign-item-name {
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
+            max-width: 75%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .campaign-platform-badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .platform-google {
+            background: rgba(234, 67, 53, 0.15);
+            color: #ff8a80;
+            border: 1px solid rgba(234, 67, 53, 0.3);
+        }
+
+        .platform-facebook {
+            background: rgba(24, 119, 242, 0.15);
+            color: #82b1ff;
+            border: 1px solid rgba(24, 119, 242, 0.3);
+        }
+
+        .campaign-item-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .campaign-item-row strong {
+            color: #fff;
+        }
+
+        /* Prax Selector Widget */
+        .prax-timeline-container {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .prax-months-nav {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            border-right: 1px solid var(--border-card);
+        }
+
+        .prax-months-nav::-webkit-scrollbar {
+            width: 4px;
+        }
+        .prax-months-nav::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+        }
+
+        .month-selector-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            text-align: left;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .month-selector-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .month-selector-btn.active {
+            color: #fff;
+            background: rgba(0, 230, 118, 0.1);
+            border-color: rgba(0, 230, 118, 0.2);
+            font-weight: 700;
+        }
+
+        .month-btn-year {
+            font-size: 0.7rem;
+            opacity: 0.6;
+        }
+
+        .prax-details-view {
+            flex: 1;
+        }
+
+        /* Demographics grid */
+        .charts-flex-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .chart-box {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-container-el {
+            position: relative;
+            width: 100%;
+            height: 250px;
+        }
+
+        /* Custom dropdown selector styling */
+        .custom-select-wrapper {
+            position: relative;
+        }
+
+        .custom-select {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
+            color: #fff;
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.875rem;
+            cursor: pointer;
+            appearance: none;
+            outline: none;
+        }
+
+        /* Footer */
+        .closing-footer {
+            margin-top: 5rem;
+            border-top: 1px solid var(--border-card);
+            padding-top: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .closing-footer h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .closing-footer-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .closing-divider {
+            width: 1px;
+            height: 50px;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .footer-logo-mike {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #fff;
+            letter-spacing: 2px;
+        }
+
+        .footer-logo-mike span {
+            color: var(--accent);
+        }
+
+        /* Navigation indicator dots */
+        .section-tabs-bar {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-card);
+            padding-bottom: 0.75rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding-bottom: 0.75rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            color: #fff;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div>
+            <div class="logo-area">
+                <div class="logo-icon">T</div>
+                <div class="logo-text">Thera Cosméticos</div>
+            </div>
+            
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-item active" data-target="cover"><a href="#cover">Capada do Relatório</a></li>
+                    <li class="nav-item" data-target="meta-ads"><a href="#meta-ads">Meta Ads (Facebook)</a></li>
+                    <li class="nav-item" data-target="google-ads"><a href="#google-ads">Google Ads</a></li>
+                    <li class="nav-item" data-target="prax-ecommerce"><a href="#prax-ecommerce">Prax - E-commerce</a></li>
+                    <li class="nav-item" data-target="campaigns"><a href="#campaigns">Comparativo Campanhas</a></li>
+                    <li class="nav-item" data-target="demographics"><a href="#demographics">Públicos e Regiões</a></li>
+                    <li class="nav-item" data-target="recompra"><a href="#recompra">Recompra & Retenção</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="footer-branding">
+            <strong>Maio 2026</strong>
+            <span>Performance Dashboard</span>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- COVER SECTION -->
+        <section id="cover" class="section-block active">
+            <div class="cover-badge">🏆 Dashboard de Performance</div>
+            <div class="cover-content" style="margin-top: 3rem;">
+                <div class="cover-left">
+                    <h1 style="font-size: 3.5rem;">Relatório de Tráfego Pago</h1>
+                    <p style="font-size: 1.5rem; color: #fff; margin-bottom: 0.5rem; font-family: 'Outfit';">Thera Cosméticos</p>
+                    <p style="font-size: 1.1rem;">Análise de métricas consolidadas de campanhas de tráfego, vendas de e-commerce, audiências e retenção no período de Maio de 2026.</p>
+                    
+                    <div style="display: flex; gap: 2rem; margin-top: 3rem;">
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Investimento Total</span>
+                            <span style="font-size: 1.75rem; font-family: 'Outfit'; font-weight: 700; color: var(--accent);">R$ 64.017,62</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Receita E-commerce</span>
+                            <span style="font-size: 1.75rem; font-family: 'Outfit'; font-weight: 700; color: #00e676;">R$ 2.027.483,88</span>
+                        </div>
+                        <div>
+                            <span style="display: block; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">ROI Geral</span>
+                            <span style="font-size: 1.75rem; font-family: 'Outfit'; font-weight: 700; color: #ffd600;">63.69x</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cover-right">
+                    <div class="cover-art"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- META ADS SECTION -->
+        <section id="meta-ads" class="section-block">
+            <div class="dash-header">
+                <div>
+                    <h2>Meta Ads (Facebook / Instagram)</h2>
+                    <p>Métricas gerais e campanhas de branding e e-commerce de Maio 2026</p>
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card" style="--accent: var(--meta-color)">
+                    <div class="kpi-label">Alcance Total</div>
+                    <div class="kpi-value">304.122</div>
+                    <div class="kpi-subtext">Pessoas alcançadas únicas</div>
+                </div>
+                <div class="kpi-card" style="--accent: var(--meta-color)">
+                    <div class="kpi-label">Impressões</div>
+                    <div class="kpi-value">2.174.282</div>
+                    <div class="kpi-subtext">Frequência média de 7.15</div>
+                </div>
+                <div class="kpi-card" style="--accent: var(--meta-color)">
+                    <div class="kpi-label">Investimento</div>
+                    <div class="kpi-value">R$ 14.524,35</div>
+                    <div class="kpi-subtext">Investimento total no Meta</div>
+                </div>
+                <div class="kpi-card" style="--accent: var(--meta-color)">
+                    <div class="kpi-label">Cliques no Link</div>
+                    <div class="kpi-value">36.300</div>
+                    <div class="kpi-subtext">CTR médio de 1.67% | CPC R$ 0,40</div>
+                </div>
+            </div>
+
+            <!-- Meta Campanha de Branding -->
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-title-icon" style="background: var(--meta-color)"></div>
+                        Campanha de Branding - Lojas Físicas
+                    </div>
+                </div>
+                <div class="strategy-container">
+                    <div class="strategy-block">
+                        <h4>Objetivo & Estratégia</h4>
+                        <p style="color: var(--text-muted); font-size: 0.925rem;">Gerar engajamento e utilizar campanhas direcionadas para fomentar o interesse de visita física nas principais praças de atuação da marca.</p>
+                    </div>
+                    <div class="strategy-block">
+                        <h4>Públicos-Alvo</h4>
+                        <ul>
+                            <li>Remarketing IG + FB 60d</li>
+                            <li>Remarketing Site 30d</li>
+                            <li>Público de interesse em Perfumes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 1rem; color: #fff;">Indicadores de Desempenho Regional</h3>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Métrica</th>
+                                <th>São Paulo</th>
+                                <th>Campinas</th>
+                                <th>Piracicaba</th>
+                                <th>Sorocaba</th>
+                                <th>Soma (Total)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Impressões</strong></td>
+                                <td>80.340</td>
+                                <td>60.467</td>
+                                <td>64.318</td>
+                                <td>64.248</td>
+                                <td>269.442</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pessoas Alcançadas</strong></td>
+                                <td>39.234</td>
+                                <td>27.181</td>
+                                <td>23.018</td>
+                                <td>25.304</td>
+                                <td>107.905</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Engajamentos</strong></td>
+                                <td>31.331</td>
+                                <td>19.242</td>
+                                <td>20.094</td>
+                                <td>21.957</td>
+                                <td>92.624</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Custo por Engajamento</strong></td>
+                                <td>R$ 0,02</td>
+                                <td>R$ 0,03</td>
+                                <td>R$ 0,03</td>
+                                <td>R$ 0,03</td>
+                                <td>R$ 0,02</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>Investimento</strong></td>
+                                <td>R$ 562,98</td>
+                                <td>R$ 561,97</td>
+                                <td>R$ 560,98</td>
+                                <td>R$ 565,58</td>
+                                <td>R$ 2.251,51</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MoM Section Meta -->
+            <div class="glass-card">
+                <div class="section-tabs-bar">
+                    <button class="tab-btn active" onclick="switchMetaMoMTab(event, 'meta-mom-2026')">Comparativo MoM 2026</button>
+                    <button class="tab-btn" onclick="switchMetaMoMTab(event, 'meta-mom-2025')">Comparativo MoM 2025</button>
+                </div>
+
+                <!-- MoM 2026 Table -->
+                <div id="meta-mom-2026" class="mom-table-container active">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Janeiro</th>
+                                    <th>Fevereiro</th>
+                                    <th>Março</th>
+                                    <th>Abril</th>
+                                    <th>Maio</th>
+                                    <th>Junho</th>
+                                    <th>Julho</th>
+                                    <th>Agosto</th>
+                                    <th>Setembro</th>
+                                    <th>Outubro</th>
+                                    <th>Novembro</th>
+                                    <th>Dezembro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Impressões</strong></td>
+                                    <td>1.2mi</td>
+                                    <td>1.1mi</td>
+                                    <td>1.5mi</td>
+                                    <td>1.8mi</td>
+                                    <td style="color: var(--accent); font-weight: 700;">1.9mi</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pessoas Alcançadas</strong></td>
+                                    <td>279mil</td>
+                                    <td>151mil</td>
+                                    <td>217mil</td>
+                                    <td>180mil</td>
+                                    <td style="color: var(--accent); font-weight: 700;">210mil</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vendas</strong></td>
+                                    <td>1.729</td>
+                                    <td>1.222</td>
+                                    <td>2.102</td>
+                                    <td>1.952</td>
+                                    <td style="color: var(--accent); font-weight: 700;">2.025</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Custo por Venda</strong></td>
+                                    <td>R$ 3,92</td>
+                                    <td>R$ 5,15</td>
+                                    <td>R$ 4,86</td>
+                                    <td>R$ 5,89</td>
+                                    <td style="color: var(--accent); font-weight: 700;">R$ 6,06</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ROAS</strong></td>
+                                    <td>51.53</td>
+                                    <td>35.96</td>
+                                    <td>39.46</td>
+                                    <td>37.40</td>
+                                    <td style="color: var(--accent); font-weight: 700;">38.42</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Valor de Venda</strong></td>
+                                    <td>R$ 349.230,59</td>
+                                    <td>R$ 266.139,53</td>
+                                    <td>R$ 407.175,78</td>
+                                    <td>R$ 429.748,59</td>
+                                    <td style="color: var(--accent); font-weight: 700;">R$ 471.519,83</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>Investimento</strong></td>
+                                    <td>R$ 6.776,23</td>
+                                    <td>R$ 6.288,07</td>
+                                    <td>R$ 10.207,19</td>
+                                    <td>R$ 11.489,72</td>
+                                    <td style="color: #fff;">R$ 12.272,84</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MoM 2025 Table -->
+                <div id="meta-mom-2025" class="mom-table-container" style="display: none;">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Impressões</strong></td>
+                                    <td>1.2mi</td><td>1mi</td><td>1.19mi</td><td>1.5mi</td><td>1.5mi</td><td>1.3mi</td><td>1.2mi</td><td>1.4mi</td><td>1.3mi</td><td>1.4mi</td><td>1.0mi</td><td>1.1mi</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pessoas Alcançadas</strong></td>
+                                    <td>290k</td><td>140k</td><td>176k</td><td>277k</td><td>237k</td><td>278k</td><td>191k</td><td>167k</td><td>164k</td><td>169k</td><td>134k</td><td>193k</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vendas</strong></td>
+                                    <td>1.790</td><td>1.646</td><td>1.678</td><td>2.185</td><td>2.404</td><td>2.077</td><td>1.872</td><td>2.173</td><td>1.842</td><td>1.684</td><td>3.239</td><td>1.593</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Custo por Venda</strong></td>
+                                    <td>R$ 3,88</td><td>R$ 4,53</td><td>R$ 5,07</td><td>R$ 5,11</td><td>R$ 4,41</td><td>R$ 4,57</td><td>R$ 5,02</td><td>R$ 4,70</td><td>R$ 5,22</td><td>R$ 6,12</td><td>R$ 2.56</td><td>R$ 4,59</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ROI / ROAS</strong></td>
+                                    <td>51.0</td><td>43.0</td><td>39.0</td><td>39.0</td><td>46.0</td><td>45.0</td><td>42.0</td><td>42.0</td><td>39.0</td><td>35.0</td><td>91.0</td><td>46.0</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Valor de Venda</strong></td>
+                                    <td>R$ 352k</td><td>R$ 320k</td><td>R$ 331k</td><td>R$ 433k</td><td>R$ 491k</td><td>R$ 424k</td><td>R$ 393k</td><td>R$ 428k</td><td>R$ 377k</td><td>R$ 361k</td><td>R$ 759k</td><td>R$ 339k</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>Investimento</strong></td>
+                                    <td>R$ 6.951</td><td>R$ 7.457</td><td>R$ 8.505</td><td>R$ 11.169</td><td>R$ 10.593</td><td>R$ 9.498</td><td>R$ 9.395</td><td>R$ 10.209</td><td>R$ 9.623</td><td>R$ 10.303</td><td>R$ 8.288</td><td>R$ 7.315</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GOOGLE ADS SECTION -->
+        <section id="google-ads" class="section-block">
+            <div class="dash-header">
+                <div>
+                    <h2>Google Ads</h2>
+                    <p>Métricas gerais e campanhas de performance e pesquisa de Maio 2026</p>
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card" style="--accent: var(--google-color)">
+                    <div class="kpi-label">Impressões</div>
+                    <div class="kpi-value">1.754.996</div>
+                    <div class="kpi-subtext">Visualizações dos anúncios</div>
+                </div>
+                <div class="kpi-card" style="--accent: var(--google-color)">
+                    <div class="kpi-label">Cliques</div>
+                    <div class="kpi-value">75.905</div>
+                    <div class="kpi-subtext">Taxa de Cliques (CTR) de 4.32%</div>
+                </div>
+                <div class="kpi-card" style="--accent: var(--google-color)">
+                    <div class="kpi-label">Investimento</div>
+                    <div class="kpi-value">R$ 17.308,86</div>
+                    <div class="kpi-subtext">Gasto total na plataforma Google</div>
+                </div>
+                <div class="kpi-card" style="--accent: var(--google-color)">
+                    <div class="kpi-label">Conversões</div>
+                    <div class="kpi-value">4.235,97</div>
+                    <div class="kpi-subtext">ROAS Geral de 50.62x</div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-title-icon" style="background: var(--google-color)"></div>
+                        Estratégia e Públicos do Google Ads
+                    </div>
+                </div>
+                <div class="strategy-container">
+                    <div class="strategy-block">
+                        <h4>Objetivo & Estratégia</h4>
+                        <p style="color: var(--text-muted); font-size: 0.925rem;">Foco em conversões diretas de vendas via e-commerce utilizando campanhas de Performance Max, anúncios de pesquisa inteligente de alta intenção e vídeos dinâmicos no YouTube.</p>
+                    </div>
+                    <div class="strategy-block">
+                        <h4>Públicos Segmentados</h4>
+                        <ul>
+                            <li>Públicos de concorrência direta e indireta</li>
+                            <li>App Fragrantica+ e público especializado de fragrâncias</li>
+                            <li>Audiência interessada em marcas correlatas (Natura e O Boticário)</li>
+                            <li>Públicos de interesse refinado em Perfumaria de Luxo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MoM Google -->
+            <div class="glass-card">
+                <div class="section-tabs-bar">
+                    <button class="tab-btn active" onclick="switchGoogleMoMTab(event, 'google-mom-2026')">Comparativo MoM 2026</button>
+                    <button class="tab-btn" onclick="switchGoogleMoMTab(event, 'google-mom-2025')">Comparativo MoM 2025</button>
+                </div>
+
+                <!-- MoM 2026 Table -->
+                <div id="google-mom-2026" class="mom-table-container active">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Janeiro</th>
+                                    <th>Fevereiro</th>
+                                    <th>Março</th>
+                                    <th>Abril</th>
+                                    <th>Maio</th>
+                                    <th>Junho</th>
+                                    <th>Julho</th>
+                                    <th>Agosto</th>
+                                    <th>Setembro</th>
+                                    <th>Outubro</th>
+                                    <th>Novembro</th>
+                                    <th>Dezembro</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Impressões</strong></td>
+                                    <td>2.1mi</td>
+                                    <td>1.5mi</td>
+                                    <td>1.8mi</td>
+                                    <td>1.5mi</td>
+                                    <td style="color: var(--accent); font-weight: 700;">1.7mi</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cliques</strong></td>
+                                    <td>72,3mil</td>
+                                    <td>58mil</td>
+                                    <td>69,1mil</td>
+                                    <td>69,1mil</td>
+                                    <td style="color: var(--accent); font-weight: 700;">75mil</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vendas</strong></td>
+                                    <td>4.336</td>
+                                    <td>3.337</td>
+                                    <td>4.461</td>
+                                    <td>3.700</td>
+                                    <td style="color: var(--accent); font-weight: 700;">4.365</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Custo por Venda</strong></td>
+                                    <td>R$ 4,04</td>
+                                    <td>R$ 4,60</td>
+                                    <td>R$ 3,80</td>
+                                    <td>R$ 4,34</td>
+                                    <td style="color: var(--accent); font-weight: 700;">R$ 3,96</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ROAS</strong></td>
+                                    <td>43.35</td>
+                                    <td>41.52</td>
+                                    <td>51.06</td>
+                                    <td>45.28</td>
+                                    <td style="color: var(--accent); font-weight: 700;">52.11</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Valor de Venda</strong></td>
+                                    <td>R$ 758.675,20</td>
+                                    <td>R$ 637.697,33</td>
+                                    <td>R$ 865.941,57</td>
+                                    <td>R$ 727.969,02</td>
+                                    <td style="color: var(--accent); font-weight: 700;">R$ 901.918,27</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>Investimento</strong></td>
+                                    <td>R$ 17.500,95</td>
+                                    <td>R$ 15.357,75</td>
+                                    <td>R$ 16.959,70</td>
+                                    <td>R$ 16.076,02</td>
+                                    <td style="color: #fff;">R$ 17.308,86</td>
+                                    <td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MoM 2025 Table -->
+                <div id="google-mom-2025" class="mom-table-container" style="display: none;">
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Métrica</th>
+                                    <th>Jan</th><th>Fev</th><th>Mar</th><th>Abr</th><th>Mai</th><th>Jun</th><th>Jul</th><th>Ago</th><th>Set</th><th>Out</th><th>Nov</th><th>Dez</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Impressões</strong></td>
+                                    <td>1.4mi</td><td>1.9mi</td><td>2.1mi</td><td>2.4mi</td><td>2.5mi</td><td>2.4mi</td><td>2.3mi</td><td>2.5mi</td><td>2.3mi</td><td>1.9mi</td><td>1.8mi</td><td>1.9mi</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cliques</strong></td>
+                                    <td>65.0k</td><td>61.8k</td><td>71.0k</td><td>78.9k</td><td>82.0k</td><td>79.0k</td><td>74.8k</td><td>76.3k</td><td>72.1k</td><td>71.5k</td><td>94.0k</td><td>76.0k</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vendas</strong></td>
+                                    <td>3.927</td><td>3.946</td><td>5.017</td><td>4.619</td><td>5.152</td><td>4.512</td><td>4.681</td><td>4.919</td><td>4.471</td><td>4.190</td><td>7.580</td><td>4.511</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Custo por Venda</strong></td>
+                                    <td>R$ 3,82</td><td>R$ 4,22</td><td>R$ 3,70</td><td>R$ 3,85</td><td>R$ 3,70</td><td>R$ 4,17</td><td>R$ 4,11</td><td>R$ 3,84</td><td>R$ 4,22</td><td>R$ 4,42</td><td>R$ 2,34</td><td>R$ 3,75</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ROI</strong></td>
+                                    <td>45.0</td><td>42.0</td><td>46.0</td><td>46.91</td><td>47.1</td><td>44.2</td><td>44.2</td><td>45.4</td><td>42.77</td><td>41.24</td><td>85.57</td><td>46.69</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Valor de Venda</strong></td>
+                                    <td>R$ 674k</td><td>R$ 692k</td><td>R$ 871k</td><td>R$ 834k</td><td>R$ 898k</td><td>R$ 831k</td><td>R$ 851k</td><td>R$ 857k</td><td>R$ 807k</td><td>R$ 764k</td><td>R$ 1.519k</td><td>R$ 789k</td>
+                                </tr>
+                                <tr class="total-row">
+                                    <td><strong>Investimento</strong></td>
+                                    <td>R$ 14.992</td><td>R$ 16.671</td><td>R$ 18.710</td><td>R$ 17.781</td><td>R$ 19.043</td><td>R$ 18.800</td><td>R$ 19.262</td><td>R$ 18.889</td><td>R$ 18.871</td><td>R$ 18.530</td><td>R$ 17.758</td><td>R$ 16.911</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRAX SECTION -->
+        <section id="prax-ecommerce" class="section-block">
+            <div class="dash-header">
+                <div>
+                    <h2>Prax - E-commerce</h2>
+                    <p>Visão geral unificada de vendas e detalhamento E-commerce vs Marketplace</p>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-title-icon" style="background: var(--prax-color)"></div>
+                        Desempenho Consolidado por Período
+                    </div>
+                </div>
+
+                <div class="prax-timeline-container">
+                    <!-- Nav Timeline lists -->
+                    <div class="prax-months-nav" id="praxMonthsList">
+                        <!-- SCRIPT WILL POPULATE THIS -->
+                    </div>
+
+                    <!-- Details Card Visual -->
+                    <div class="prax-details-view" id="praxDetailsPanel">
+                        <!-- SCRIPT WILL POPULATE THIS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAMPAIGNS COMPARATIVE SECTION -->
+        <section id="campaigns" class="section-block">
+            <div class="dash-header">
+                <div>
+                    <h2>Comparativo de Campanhas</h2>
+                    <p>Análise de melhor e pior performance de criativos e campanhas de anúncios</p>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-title-icon" style="background: var(--accent)"></div>
+                        Melhores e Piores Campanhas - Maio 2026
+                    </div>
+                </div>
+
+                <div class="campaign-split">
+                    <!-- BEST -->
+                    <div class="campaign-status-card best">
+                        <h4>🔥 TOP 5 - Campanhas com Melhor ROAS</h4>
+                        
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] [SEARCH-VENDA] - OUTROS ESTADOS</span>
+                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 1.824,79</strong></div>
+                                <div>Receita: <strong>R$ 207.256,40</strong></div>
+                                <div>ROAS: <strong style="color: #00e676;">113.58x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] [SEARCH-VENDA] - SÃO PAULO</span>
+                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 2.432,69</strong></div>
+                                <div>Receita: <strong>R$ 157.941,92</strong></div>
+                                <div>ROAS: <strong style="color: #00e676;">64.92x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] [PURCHASE] [ADVANTAGE+] [CATÁLOGO]</span>
+                                <span class="campaign-platform-badge platform-facebook">Meta Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 2.484,57</strong></div>
+                                <div>Receita: <strong>R$ 128.964,60</strong></div>
+                                <div>ROAS: <strong style="color: #00e676;">51.91x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] MAX PERFORMANCE [BR] CONCORRENTES INDIRETOS TESTE A/B ROAS (B)</span>
+                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 2.248,77</strong></div>
+                                <div>Receita: <strong>R$ 104.097,59</strong></div>
+                                <div>ROAS: <strong style="color: #00e676;">46.29x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] MAX PERFORMANCE [BR] CONCORRENTES DIRETOS</span>
+                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 1.217,37</strong></div>
+                                <div>Receita: <strong>R$ 51.665,28</strong></div>
+                                <div>ROAS: <strong style="color: #00e676;">42.44x</strong></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WORST -->
+                    <div class="campaign-status-card worst">
+                        <h4>⚠️ PIORES 5 - Menor Desempenho / ROAS</h4>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] [ENGAJAMENTO] [LOJAS FÍSICAS]</span>
+                                <span class="campaign-platform-badge platform-facebook">Meta Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 2.251,51</strong></div>
+                                <div>Receita: <strong>R$ 1.830,36</strong></div>
+                                <div>ROAS: <strong style="color: #ea4335;">0.81x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] [SEARCH - VENDA] [CONTRATIPO] - BR 07.09</span>
+                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 608,47</strong></div>
+                                <div>Receita: <strong>R$ 7.632,77</strong></div>
+                                <div>ROAS: <strong style="color: #ff8a80;">12.54x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] [PURCHASE] [ANIVERSARIANTES]</span>
+                                <span class="campaign-platform-badge platform-facebook">Meta Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 927,75</strong></div>
+                                <div>Receita: <strong>R$ 15.181,87</strong></div>
+                                <div>ROAS: <strong style="color: #ff8a80;">16.36x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] [YOUTUBE] [BR] 07.09 #2</span>
+                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 708,84</strong></div>
+                                <div>Receita: <strong>R$ 21.109,81</strong></div>
+                                <div>ROAS: <strong style="color: #ff8a80;">29.78x</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="campaign-item-box">
+                            <div class="campaign-item-header">
+                                <span class="campaign-item-name">[MM] MAX PERFORMANCE [BR] CONCORRENTES INDIRETOS</span>
+                                <span class="campaign-platform-badge platform-google">Google Ads</span>
+                            </div>
+                            <div class="campaign-item-row">
+                                <div>Gasto: <strong>R$ 1.522,13</strong></div>
+                                <div>Receita: <strong>R$ 52.714,21</strong></div>
+                                <div>ROAS: <strong style="color: #ff8a80;">34.63x</strong></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEMOGRAPHICS & LOCATION SECTION -->
+        <section id="demographics" class="section-block">
+            <div class="dash-header">
+                <div>
+                    <h2>Públicos e Dados Sociodemográficos</h2>
+                    <p>Perfil de usuários, gênero, idade, dispositivos e distribuição por estados</p>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="charts-flex-grid">
+                    <!-- Devices -->
+                    <div class="chart-box">
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">📱 Principais Dispositivos</h4>
+                        <div class="chart-container-el">
+                            <canvas id="devicesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="chart-box">
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">👥 Gênero do Público-Alvo</h4>
+                        <div class="chart-container-el">
+                            <canvas id="genderChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="charts-flex-grid">
+                    <!-- Age -->
+                    <div class="chart-box" style="grid-column: span 1;">
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">🎂 Distribuição de Idades</h4>
+                        <div class="chart-container-el">
+                            <canvas id="ageChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Geo -->
+                    <div class="chart-box" style="grid-column: span 1;">
+                        <h4 style="font-family: 'Outfit'; margin-bottom: 1.5rem; width: 100%; text-align: left;">📍 Localização dos Clientes</h4>
+                        <div class="chart-container-el">
+                            <canvas id="locationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECOMPRA SECTION -->
+        <section id="recompra" class="section-block">
+            <div class="dash-header">
+                <div>
+                    <h2>Recompra e Fidelização</h2>
+                    <p>Análise de novas vendas vs compras recorrentes do e-commerce</p>
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card" style="--accent: #ffd600">
+                    <div class="kpi-label">Faturamento Total (Maio 2026)</div>
+                    <div class="kpi-value">R$ 2.027.483,88</div>
+                    <div class="kpi-subtext">Valor total transacionado</div>
+                </div>
+                <div class="kpi-card" style="--accent: #00e676">
+                    <div class="kpi-label">Valor de Recompra</div>
+                    <div class="kpi-value">R$ 1.604.600,58</div>
+                    <div class="kpi-subtext">Faturamento originado de recompras</div>
+                </div>
+                <div class="kpi-card" style="--accent: var(--accent)">
+                    <div class="kpi-label">Taxa de Recompra</div>
+                    <div class="kpi-value">79.14%</div>
+                    <div class="kpi-subtext">Porcentagem de pedidos recorrentes</div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-title-icon" style="background: #ffd600"></div>
+                        Evolução Mensal da Taxa de Recompra
+                    </div>
+                </div>
+                <div class="chart-container-el" style="height: 350px;">
+                    <canvas id="recompraEvolutionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLOSING FOOTER -->
+        <footer class="closing-footer">
+            <h3>Muito obrigado pela parceria!</h3>
+            <p style="color: var(--text-muted);">Relatório gerado em alta fidelidade a partir de métricas nativas do sistema.</p>
+            
+            <div class="closing-footer-layout">
+                <div class="footer-logo-mike">MIKE<span>ADS</span></div>
+                <div class="closing-divider"></div>
+                <div style="text-align: left; font-size: 0.8rem; color: var(--text-muted);">
+                    <strong>THERA COSMÉTICOS</strong><br>
+                    Gestão de Mídia & Analytics | Maio 2026
+                </div>
+            </div>
+        </footer>
+    </main>
+</div>
+
+<script>
+    // Navigation routing logic
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+            
+            const target = this.getAttribute('data-target');
+            document.querySelectorAll('.section-block').forEach(section => {
+                section.classList.remove('active');
+                if (section.id === target) {
+                    section.classList.add('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+    // Helper functions to toggle sub tables in Meta / Google MoM
+    function switchMetaMoMTab(e, id) {
+        const container = e.target.closest('.glass-card');
+        container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        container.querySelectorAll('.mom-table-container').forEach(el => el.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+
+    function switchGoogleMoMTab(e, id) {
+        const container = e.target.closest('.glass-card');
+        container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        container.querySelectorAll('.mom-table-container').forEach(el => el.style.display = 'none');
+        document.getElementById(id).style.display = 'block';
+    }
+
+    // Prax Dataset Jan 2025 to May 2026
+    const praxData = [
+        { month: 'Janeiro', year: '2025', total: '1.478.523,85', conv: '3.48%', roi: '62.53x', cac: '8,24', pedidos: '7.470', ticket: '197,93', inv: '23.646,92', lucro: '1.266.050,69', cpa: '3,17', clientes: '5.675', ecommerce: '1.120.538,76', marketplace: '357.985,09', roi_eco: '47.39x' },
+        { month: 'Fevereiro', year: '2025', total: '1.550.814,05', conv: '4.12%', roi: '60.39x', cac: '8,80', pedidos: '7.805', ticket: '198,69', inv: '25.681,51', lucro: '1.349.551,81', cpa: '3,29', clientes: '6.080', ecommerce: '1.260.849,10', marketplace: '289.964,95', roi_eco: '49.10x' },
+        { month: 'Março', year: '2025', total: '1.748.960,60', conv: '4.10%', roi: '61.10x', cac: '8,88', pedidos: '8.881', ticket: '196,93', inv: '28.622,72', lucro: '1.346.541,04', cpa: '3,22', clientes: '6.834', ecommerce: '1.401.618,49', marketplace: '347.342,11', roi_eco: '48.97x' },
+        { month: 'Abril', year: '2025', total: '1.964.293,79', conv: '3.43%', roi: '61.94x', cac: '11,36', pedidos: '10.159', ticket: '193,36', inv: '31.712,82', lucro: '1.312.258,24', cpa: '3,12', clientes: '7.598', ecommerce: '1.507.635,14', marketplace: '456.658,65', roi_eco: '47.54x' },
+        { month: 'Maio', year: '2025', total: '2.038.839,61', conv: '3.60%', roi: '63.99x', cac: '11,20', pedidos: '10.507', ticket: '194,05', inv: '31.861,06', lucro: '1.437.942,44', cpa: '3,03', clientes: '7.578', ecommerce: '1.496.157,15', marketplace: '542.682,46', roi_eco: '46.96x' },
+        { month: 'Junho', year: '2025', total: '2.068.518,42', conv: '3.86%', roi: '67.92x', cac: '11,29', pedidos: '9.244', ticket: '223,77', inv: '30.454,39', lucro: '1.412.450,56', cpa: '3,29', clientes: '6.914', ecommerce: '1.633.491,05', marketplace: '435.027,37', roi_eco: '53.64x' },
+        { month: 'Julho', year: '2025', total: '2.050.018,09', conv: '3.73%', roi: '64.49x', cac: '14,48', pedidos: '8.917', ticket: '229,90', inv: '31.787,13', lucro: '1.391.902,47', cpa: '3,56', clientes: '6.653', ecommerce: '1.588.144,30', marketplace: '461.873,79', roi_eco: '49.96x' },
+        { month: 'Agosto', year: '2025', total: '2.003.163,02', conv: '4.12%', roi: '63.27x', cac: '13,33', pedidos: '9.579', ticket: '209,12', inv: '31.659,05', lucro: '1.370.936,44', cpa: '3,31', clientes: '6.942', ecommerce: '1.499.263,69', marketplace: '503.899,33', roi_eco: '47.36x' },
+        { month: 'Setembro', year: '2025', total: '2.069.895,07', conv: '4.06%', roi: '67.62x', cac: '13,83', pedidos: '8.682', ticket: '238,41', inv: '30.611,64', lucro: '1.400.988,86', cpa: '3,53', clientes: '6.378', ecommerce: '1.628.455,21', marketplace: '441.439,86', roi_eco: '53.20x' },
+        { month: 'Outubro', year: '2025', total: '2.020.171,16', conv: '3.57%', roi: '65.05x', cac: '14,84', pedidos: '8.119', ticket: '248,82', inv: '31.055,18', lucro: '1.373.567,04', cpa: '3,83', clientes: '6.001', ecommerce: '1.557.044,23', marketplace: '463.126,93', roi_eco: '50.14x' },
+        { month: 'Novembro', year: '2025', total: '2.807.499,94', conv: '4.15%', roi: '97.21x', cac: '9,37', pedidos: '13.548', ticket: '207,23', inv: '28.879,74', lucro: '1.896.631,09', cpa: '2,13', clientes: '10.305', ecommerce: '2.219.065,04', marketplace: '588.434,90', roi_eco: '76.84x' },
+        { month: 'Dezembro', year: '2025', total: '1.906.319,88', conv: '3.51%', roi: '72.18x', cac: '10,82', pedidos: '9.500', ticket: '200,67', inv: '26.412,39', lucro: '1.401.726,25', cpa: '2,78', clientes: '6.435', ecommerce: '1.201.974,32', marketplace: '704.389,85', roi_eco: '45.51x' },
+        { month: 'Janeiro', year: '2026', total: '1.667.778,75', conv: '3.70%', roi: '62.95x', cac: '13,42', pedidos: '7.669', ticket: '217,47', inv: '26.495,37', lucro: '1.144.581,41', cpa: '3,45', clientes: '5.752', ecommerce: '1.289.257,99', marketplace: '378.520,76', roi_eco: '48.66x' },
+        { month: 'Fevereiro', year: '2026', total: '1.396.446,41', conv: '3.37%', roi: '59.03x', cac: '15,31', pedidos: '5.890', ticket: '237,09', inv: '23.655,21', lucro: '977.151,25', cpa: '4,02', clientes: '4.351', ecommerce: '1.039.789,30', marketplace: '356.657,11', roi_eco: '43.96x' },
+        { month: 'Março', year: '2026', total: '1.960.296,60', conv: '3.61%', roi: '66.64x', cac: '15,08', pedidos: '8.083', ticket: '242,52', inv: '29.509,22', lucro: '1.269.200,19', cpa: '3,65', clientes: '6.048', ecommerce: '1.485.630,65', marketplace: '474.665,95', roi_eco: '50.34x' },
+        { month: 'Abril', year: '2026', total: '2.039.865,72', conv: '3.31%', roi: '68.69x', cac: '15,75', pedidos: '8.431', ticket: '241,95', inv: '29.694,83', lucro: '1.258.357,46', cpa: '3,52', clientes: '6.244', ecommerce: '1.508.083,67', marketplace: '531.782,05', roi_eco: '50.79x' },
+        { month: 'Maio', year: '2026', total: '2.027.483,88', conv: '3.45%', roi: '63.69x', cac: '14,18', pedidos: '8.560', ticket: '236,86', inv: '31.833,21', lucro: '1.370.654,70', cpa: '3,72', clientes: '7.578', ecommerce: '1.483.743,43', marketplace: '543.740,45', roi_eco: '46.61x' }
+    ];
+
+    // Function to populate Prax Timeline
+    function initPraxWidget() {
+        const navContainer = document.getElementById('praxMonthsList');
+        navContainer.innerHTML = '';
+
+        praxData.forEach((data, index) => {
+            const btn = document.createElement('button');
+            btn.className = `month-selector-btn ${index === praxData.length - 1 ? 'active' : ''}`;
+            btn.innerHTML = `
+                <span>${data.month}</span>
+                <span class="month-btn-year">${data.year}</span>
+            `;
+            btn.onclick = () => selectPraxMonth(index);
+            navContainer.appendChild(btn);
+        });
+
+        selectPraxMonth(praxData.length - 1);
+    }
+
+    function selectPraxMonth(index) {
+        // Handle Active Button styling
+        const btns = document.querySelectorAll('.month-selector-btn');
+        btns.forEach((btn, idx) => {
+            if (idx === index) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+
+        const data = praxData[index];
+        const panel = document.getElementById('praxDetailsPanel');
+
+        panel.innerHTML = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="kpi-card" style="--accent-grad: linear-gradient(135deg, #00e676 0%, #00b0ff 100%)">
+                    <div class="kpi-label">Total Vendido (${data.month} ${data.year})</div>
+                    <div class="kpi-value" style="font-size: 2rem;">R$ ${data.total}</div>
+                    <div class="kpi-subtext">ROI Geral de: <strong>${data.roi}</strong></div>
+                </div>
+                <div class="kpi-card" style="--accent-grad: linear-gradient(135deg, #00d2ff 0%, #1877F2 100%)">
+                    <div class="kpi-label">Investimento em Marketing</div>
+                    <div class="kpi-value" style="font-size: 2rem;">R$ ${data.inv}</div>
+                    <div class="kpi-subtext">Lucro Líquido: <strong>R$ ${data.lucro}</strong></div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                <div class="kpi-card">
+                    <div class="kpi-label">Taxa Conversão</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;">${data.conv}</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">CAC</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;">R$ ${data.cac}</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">CPA</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;">R$ ${data.cpa}</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Pedidos</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;">${data.pedidos}</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Ticket Médio</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;">R$ ${data.ticket}</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Clientes</div>
+                    <div class="kpi-value" style="font-size: 1.35rem;">${data.clientes}</div>
+                </div>
+            </div>
+
+            <h3 style="font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 1rem; color: #fff;">Desdobramento por Canal de Venda</h3>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Canal</th>
+                            <th>Investimento</th>
+                            <th>Receita</th>
+                            <th>ROI</th>
+                            <th>ROAS</th>
+                            <th>CPA</th>
+                            <th>Taxa de Conversão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>E-commerce</strong></td>
+                            <td>R$ ${data.inv}</td>
+                            <td>R$ ${data.ecommerce}</td>
+                            <td>${data.roi_eco}</td>
+                            <td>${data.roi_eco}</td>
+                            <td>R$ ${data.cpa}</td>
+                            <td>${data.conv}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marketplace</strong></td>
+                            <td>R$ 0,00</td>
+                            <td>R$ ${data.marketplace}</td>
+                            <td>0.00x</td>
+                            <td>Não disponível</td>
+                            <td>R$ 0,00</td>
+                            <td>Não disponível</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Total</strong></td>
+                            <td>R$ ${data.inv}</td>
+                            <td>R$ ${data.total}</td>
+                            <td>${data.roi}</td>
+                            <td>${data.roi_eco}</td>
+                            <td>R$ ${data.cpa}</td>
+                            <td>${data.conv}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    // Chart.js Configuration
+    window.onload = function() {
+        initPraxWidget();
+
+        // Devices Doughnut Chart
+        new Chart(document.getElementById('devicesChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Mobile (Celulares)', 'Computadores', 'Outros (Tablet / TV)'],
+                datasets: [{
+                    data: [80.3, 18.0, 1.7],
+                    backgroundColor: ['#00d2ff', '#1877F2', '#334155'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#9ca3af', font: { family: 'Plus Jakarta Sans' } }
+                    }
+                }
+            }
+        });
+
+        // Gender Doughnut Chart
+        new Chart(document.getElementById('genderChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Masculino (Male)', 'Feminino (Female)', 'Indeterminado / Outros'],
+                datasets: [{
+                    data: [49.9, 27.4, 22.7],
+                    backgroundColor: ['#1877F2', '#ec4899', '#4b5563'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#9ca3af', font: { family: 'Plus Jakarta Sans' } }
+                    }
+                }
+            }
+        });
+
+        // Age Distribution Bar Chart
+        new Chart(document.getElementById('ageChart'), {
+            type: 'bar',
+            data: {
+                labels: ['18 a 24', '25 a 34', '35 a 44', '45 a 54', '55 a 64', 'gt64', 'Indeterminado'],
+                datasets: [{
+                    label: 'Usuários por faixa de idade',
+                    data: [80, 200, 160, 110, 70, 30, 560], // Simulated heights based on graphic scale representation
+                    backgroundColor: '#00d2ff',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { grid: { display: false }, ticks: { color: '#9ca3af' } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af' } }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Geo Map Representation (Simulating location pie values)
+        new Chart(document.getElementById('locationChart'), {
+            type: 'pie',
+            data: {
+                labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais', 'Rio Grande do Sul', 'Paraná', 'Santa Catarina', 'Outros'],
+                datasets: [{
+                    data: [40.7, 11.4, 10.8, 5.0, 4.1, 3.4, 24.6], // Total sum of Outros + Ceará + Goiás + Bahia = 24.6%
+                    backgroundColor: ['#00d2ff', '#1877F2', '#ffd600', '#00e676', '#a855f7', '#f97316', '#4b5563'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { color: '#9ca3af', font: { family: 'Plus Jakarta Sans', size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // Recompra evolution bar chart
+        new Chart(document.getElementById('recompraEvolutionChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Out 25', 'Nov 25', 'Dez 25', 'Jan 26', 'Fev 26', 'Mar 26', 'Abr 26', 'Mai 26'],
+                datasets: [
+                    {
+                        label: 'Recompra (%)',
+                        data: [82.61, 80.49, 80.20, 80.56, 82.42, 83.49, 79.14, 79.14], // Extracted from matching pages
+                        type: 'line',
+                        borderColor: '#ffd600',
+                        borderWidth: 2,
+                        yAxisID: 'y1',
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Receita Recompra (R$)',
+                        data: [1668831, 2259655, 1337583, 1125004, 1615688, 1702984, 1604600, 1604600],
+                        backgroundColor: 'rgba(0, 210, 255, 0.4)',
+                        borderRadius: 6,
+                        yAxisID: 'y'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        type: 'linear',
+                        position: 'left',
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#9ca3af' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        grid: { drawOnChartArea: false },
+                        ticks: { color: '#ffd600' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#9ca3af' }
+                    }
+                }
+            }
+        });
+    };
+</script>
+
+</body>
+</html>
