@@ -845,36 +845,6 @@
             height: 2px;
             background: var(--accent);
         }
-
-        /* Mode HUD styling */
-        .mode-hud {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: rgba(13, 20, 38, 0.9);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            padding: 0.75rem 1.25rem;
-            box-shadow: 0 5px 25px rgba(0, 210, 255, 0.2);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .mode-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00e676;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 0.6; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.6; }
-        }
     </style>
 </head>
 <body>
@@ -1744,12 +1714,6 @@
             </div>
         </section>
     </main>
-</div>
-
-<!-- Floating Mode HUD (indicates live-editing is enabled) -->
-<div class="mode-hud">
-    <div class="mode-indicator"></div>
-    <span style="font-size: 0.85rem; font-weight: 700; color: #fff;">Modo Edição Ativo</span>
 </div>
 
 <script>
