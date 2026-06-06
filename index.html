@@ -970,7 +970,7 @@
             /* Responsive 4-Column Navigation Layout on Mobile */
             .nav-list {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(3, 1fr);
                 gap: 0.3rem;
                 width: 100%;
             }
@@ -1018,7 +1018,7 @@
             /* Content padding to offset the fixed menu header */
             .main-content {
                 padding: 1rem;
-                padding-top: 10.5rem; /* Space for the 2-row fixed menu header */
+                padding-top: 13.5rem; /* Space for the 3-row fixed menu header */
                 overflow-x: hidden;
                 width: 100%;
             }
@@ -1162,6 +1162,7 @@
             <nav>
                 <ul class="nav-list" id="sidebarNavList">
                     <li class="nav-item active" data-target="cover" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#cover"><span class="desktop-text">Capa do Relat&oacute;rio</span><span class="mobile-text">Capa</span></a></li>
+                    <li class="nav-item" data-target="resultados-globais" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#resultados-globais"><span class="desktop-text">Resultados Globais</span><span class="mobile-text">Resultados</span></a></li>
                     <li class="nav-item" data-target="meta-ads" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#meta-ads"><span class="desktop-text">Meta Ads (Facebook)</span><span class="mobile-text">Meta Ads</span></a></li>
                     <li class="nav-item" data-target="google-ads" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#google-ads"><span class="desktop-text">Google Ads</span><span class="mobile-text">Google Ads</span></a></li>
                     <li class="nav-item" data-target="prax-ecommerce" draggable="true" ondragstart="handleDragStart(event)" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragend="handleDragEnd(event)"><a href="#prax-ecommerce"><span class="desktop-text">Prax - E-commerce</span><span class="mobile-text">Prax E-com</span></a></li>
@@ -1215,6 +1216,106 @@
                 </div>
             </div>
         </section>
+
+        <!-- RESULTADOS GLOBAIS SECTION -->
+        <section id="resultados-globais" class="section-block">
+            <div class="dash-header">
+                <div>
+                    <h2>Resultados Globais (Consolidado)</h2>
+                    <p>Consolidado de investimentos, faturamento e ROI entre todos os canais de tr&aacute;fego e vendas - Maio 2026</p>
+                </div>
+            </div>
+
+            <div class="kpi-grid">
+                <div class="kpi-card" style="--accent: var(--accent)">
+                    <div class="kpi-label">Investimento Total (Google + Meta)</div>
+                    <div class="kpi-value" id="coverTotalInvestment">R$ 29.581,70</div>
+                    <div class="kpi-subtext">Soma das m&iacute;dias pagas (Maio 2026)</div>
+                </div>
+                <div class="kpi-card" style="--accent: #00e676">
+                    <div class="kpi-label">Receita Consolidada (Prax)</div>
+                    <div class="kpi-value">R$ 2.027.483,88</div>
+                    <div class="kpi-subtext">E-commerce + Marketplace</div>
+                </div>
+                <div class="kpi-card" style="--accent: #ffd600">
+                    <div class="kpi-label">ROI Consolidado</div>
+                    <div class="kpi-value">63.69x</div>
+                    <div class="kpi-subtext">Retorno sobre investimento total (m&iacute;dia)</div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-title-icon" style="background: var(--accent)"></div>
+                        Compilado Geral de Performance por Canal
+                    </div>
+                </div>
+                
+                <div class="table-scroll-indicator">
+                    <span>&harr; Deslize a tabela para o lado para ver mais</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Canal / Plataforma</th>
+                                <th>M&eacute;trica Principal</th>
+                                <th>Investimento</th>
+                                <th>Receita / Retorno</th>
+                                <th>Efici&ecirc;ncia (ROAS / ROI)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Meta Ads (E-commerce)</strong></td>
+                                <td>2.025 Vendas</td>
+                                <td>R$ 12.272,84</td>
+                                <td>R$ 471.519,83</td>
+                                <td>38.42x ROAS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meta Ads (Branding / Lojas)</strong></td>
+                                <td>92.624 Engajamentos</td>
+                                <td>R$ 2.251,51</td>
+                                <td>Visitas F&iacute;sicas</td>
+                                <td>R$ 0,02 Custo/Eng</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Google Ads (E-commerce)</strong></td>
+                                <td>4.365 Vendas</td>
+                                <td>R$ 17.308,86</td>
+                                <td>R$ 901.918,27</td>
+                                <td>52.11x ROAS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prax E-commerce (Site)</strong></td>
+                                <td>Funil Pr&oacute;prio</td>
+                                <td>R$ 31.833,21</td>
+                                <td>R$ 1.483.743,43</td>
+                                <td>46.61x ROI</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prax Marketplace (Canais)</strong></td>
+                                <td>Integra&ccedil;&otilde;es</td>
+                                <td>R$ 0,00</td>
+                                <td>R$ 543.740,45</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>Faturamento Geral (Prax)</strong></td>
+                                <td>8.560 Pedidos (Ticket R$ 236,86)</td>
+                                <td>R$ 31.833,21</td>
+                                <td>R$ 2.027.483,88</td>
+                                <td>63.69x ROI Geral</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        
 
         <!-- META ADS SECTION -->
         <section id="meta-ads" class="section-block">
@@ -1989,37 +2090,19 @@
             </div>
         </section>
 
-        <!-- FINALIZATION SECTION (AGRADECIMENTO + KPIs) -->
+                        <!-- FINALIZATION SECTION (AGRADECIMENTO) -->
         <section id="finalizacao" class="section-block">
             <div class="final-presentation-block">
                 <h2 class="thank-you-title">Muito obrigado pela parceria!</h2>
                 
-                <div class="kpi-grid" style="width: 100%; max-width: 900px; margin-top: 1rem;">
-                    <div class="kpi-card" style="--accent: var(--accent)">
-                        <div class="kpi-label">Investimento Total (Google + Meta)</div>
-                        <div class="kpi-value" id="coverTotalInvestment">R$ 29.581,70</div>
-                        <div class="kpi-subtext">Investido apenas em Maio 2026</div>
-                    </div>
-                    <div class="kpi-card" style="--accent: #00e676">
-                        <div class="kpi-label">Receita E-commerce</div>
-                        <div class="kpi-value">R$ 2.027.483,88</div>
-                        <div class="kpi-subtext">Faturamento gerado no período</div>
-                    </div>
-                    <div class="kpi-card" style="--accent: #ffd600">
-                        <div class="kpi-label">ROI Geral</div>
-                        <div class="kpi-value">63.69x</div>
-                        <div class="kpi-subtext">Retorno sobre investimento</div>
-                    </div>
-                </div>
-
                 <div class="final-branding-card" style="background: transparent; border: none; padding: 0;">
                     <!-- Closing Signature Block -->
                     <div class="closing-footer-layout">
                         <div class="footer-logo-mike">MIKE<span>ADS</span></div>
                         <div class="closing-divider"></div>
                         <div style="text-align: left; font-size: 0.8rem; color: var(--text-muted);">
-                            <strong style="color: #fff; display: block; margin-bottom: 0.25rem;">THERA COSMÉTICOS</strong>
-                            <span>Gestão de Mídia & Analytics | Maio 2026</span>
+                            <strong style="color: #fff; display: block; margin-bottom: 0.25rem;">THERA COSMÃ‰TICOS</strong>
+                            <span>GestÃ£o de MÃ­dia & Analytics | Maio 2026</span>
                         </div>
                     </div>
                 </div>
